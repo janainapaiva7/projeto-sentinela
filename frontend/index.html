@@ -13,7 +13,7 @@
 
 <script>
 function login() {
-  fetch("http://localhost:3000/login", {
+  fetch("/login", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -25,7 +25,8 @@ function login() {
   .then(data => {
     if(data.tipo === "triagem") location.href = "triagem.html";
     if(data.tipo === "medico") location.href = "medico.html";
-    if(data.tipo === "atendimento") location.href = "atendimento.html";
+    if(data.tipo === "atendimento") location.href =
+      "atendimento.html";
   });
 }
 </script>
