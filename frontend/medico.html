@@ -14,6 +14,7 @@
       margin-top: 8px;
     }
     .btn-tv:hover { background: #1e7e34; }
+
     .btn-abrir-tv {
       background: #17a2b8;
       color: white;
@@ -24,6 +25,7 @@
       cursor: pointer;
     }
     .btn-abrir-tv:hover { background: #117a8b; }
+
     .consultorio-input {
       display: flex;
       align-items: center;
@@ -34,7 +36,11 @@
       border-radius: 6px;
       border: 1px solid #d0d8f0;
     }
-    .consultorio-input label { font-weight: bold; }
+
+    .consultorio-input label {
+      font-weight: bold;
+    }
+
     .consultorio-input input {
       width: 60px;
       text-align: center;
@@ -194,5 +200,768 @@ setInterval(carregar, 10000);
 
 </script>
 
+
+<!-- =====================================================
+     NOVA FUNÇÃO: ALTA
+     
+     TUDO ABAIXO DESTE PONTO É NOVO.
+     O CÓDIGO ACIMA NÃO FOI ALTERADO.
+     ===================================================== -->
+
+
+<!-- BOTÃO DAR ALTA SERÁ ADICIONADO AOS CARDS
+     ATRAVÉS DE JAVASCRIPT, SEM ALTERAR A FUNÇÃO carregar()
+-->
+
+<script>
+
+(function adicionarBotaoAlta() {
+
+  const carregarOriginal = window.carregar;
+
+  window.carregar = function() {
+
+    const resultado = carregarOriginal();
+
+    setTimeout(function() {
+
+      const cards =
+        document.querySelectorAll("#triagens .card");
+
+      cards.forEach(function(card, index) {
+
+        // Evita criar o botão duas vezes
+        if (card.querySelector(".btn-alta-novo")) {
+          return;
+        }
+
+        const botao = document.createElement("button");
+
+        botao.className = "btn-alta-novo";
+
+        botao.innerHTML = "🏥 Dar Alta";
+
+        botao.onclick = function() {
+
+          const paciente =
+            triagensCarregadas[index];
+
+          if (!paciente) {
+            alert("Paciente não encontrado.");
+            return;
+          }
+
+          abrirFormularioAlta(
+            paciente.nome,
+            paciente.diagnostico || ""
+          );
+
+        };
+
+        card.appendChild(botao);
+
+      });
+
+    }, 100);
+
+    return resultado;
+
+  };
+
+})();
+
+</script>
+
+
+<!-- =====================================================
+     FORMULÁRIO DE ALTA
+     ===================================================== -->
+
+<div id="modalAlta" class="modal-alta">
+
+  <div class="caixa-alta">
+
+    <h2>🏥 Alta do Paciente</h2>
+
+    <div class="campo-alta">
+
+      <label>Paciente</label>
+
+      <input
+        type="text"
+        id="altaPaciente"
+        readonly>
+
+    </div>
+
+
+    <div class="campo-alta">
+
+      <label>Diagnóstico</label>
+
+      <input
+        type="text"
+        id="altaDiagnostico"
+        readonly>
+
+    </div>
+
+
+    <div class="campo-alta">
+
+      <label>
+        Motivo da Alta *
+      </label>
+
+      <textarea
+        id="motivoAlta"
+        rows="5"
+        placeholder="Informe o motivo da alta..."
+        required></textarea>
+
+    </div>
+
+
+    <div class="campo-alta">
+
+      <label>
+        Observações
+      </label>
+
+      <textarea
+        id="observacoesAlta"
+        rows="4"
+        placeholder="Digite observações adicionais..."></textarea>
+
+    </div>
+
+
+    <div class="campo-alta">
+
+      <label>
+        Data da Alta *
+      </label>
+
+      <input
+        type="date"
+        id="dataAlta"
+        required>
+
+    </div>
+
+
+    <div class="botoes-alta">
+
+      <button
+        type="button"
+        class="btn-gerar-alta"
+        onclick="gerarAltaPDF()">
+
+        📄 Gerar PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-cancelar-alta"
+        onclick="fecharFormularioAlta()">
+
+        Cancelar
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     DOCUMENTO PARA PDF
+     ===================================================== -->
+
+<div id="documentoAlta">
+
+  <div class="cabecalho-pdf">
+
+    <h1>
+      DOCUMENTO DE ALTA
+    </h1>
+
+    <p>
+      Relatório de Alta do Paciente
+    </p>
+
+  </div>
+
+
+  <p>
+    <strong>Paciente:</strong>
+    <span id="pdfPaciente"></span>
+  </p>
+
+
+  <p>
+    <strong>Diagnóstico:</strong>
+    <span id="pdfDiagnostico"></span>
+  </p>
+
+
+  <p>
+    <strong>Data da Alta:</strong>
+    <span id="pdfData"></span>
+  </p>
+
+
+  <hr>
+
+
+  <h3>
+    Motivo da Alta
+  </h3>
+
+  <p id="pdfMotivo"></p>
+
+
+  <h3>
+    Observações
+  </h3>
+
+  <p id="pdfObservacoes"></p>
+
+
+  <div class="assinatura-pdf">
+
+    ______________________________________
+
+    <br>
+
+    Responsável pela alta
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT DA ALTA
+     ===================================================== -->
+
+<script>
+
+
+// =====================================================
+// ABRIR FORMULÁRIO
+// =====================================================
+
+function abrirFormularioAlta(
+  paciente,
+  diagnostico
+) {
+
+  document.getElementById("modalAlta").style.display =
+    "flex";
+
+
+  document.getElementById("altaPaciente").value =
+    paciente || "";
+
+
+  document.getElementById("altaDiagnostico").value =
+    diagnostico || "";
+
+
+  document.getElementById("motivoAlta").value =
+    "";
+
+
+  document.getElementById("observacoesAlta").value =
+    "";
+
+
+  // Data atual
+
+  const hoje = new Date();
+
+  const ano =
+    hoje.getFullYear();
+
+  const mes =
+    String(hoje.getMonth() + 1)
+      .padStart(2, "0");
+
+  const dia =
+    String(hoje.getDate())
+      .padStart(2, "0");
+
+
+  document.getElementById("dataAlta").value =
+    `${ano}-${mes}-${dia}`;
+
+
+  setTimeout(function() {
+
+    document
+      .getElementById("motivoAlta")
+      .focus();
+
+  }, 100);
+
+}
+
+
+
+// =====================================================
+// FECHAR FORMULÁRIO
+// =====================================================
+
+function fecharFormularioAlta() {
+
+  document.getElementById("modalAlta").style.display =
+    "none";
+
+}
+
+
+
+// =====================================================
+// GERAR PDF
+// =====================================================
+
+function gerarAltaPDF() {
+
+
+  const paciente =
+    document.getElementById("altaPaciente").value;
+
+
+  const diagnostico =
+    document.getElementById("altaDiagnostico").value;
+
+
+  const motivo =
+    document.getElementById("motivoAlta").value;
+
+
+  const observacoes =
+    document.getElementById("observacoesAlta").value;
+
+
+  const data =
+    document.getElementById("dataAlta").value;
+
+
+
+  // Verificação
+
+  if (!motivo.trim()) {
+
+    alert(
+      "⚠️ Informe o motivo da alta."
+    );
+
+    document
+      .getElementById("motivoAlta")
+      .focus();
+
+    return;
+
+  }
+
+
+  if (!data) {
+
+    alert(
+      "⚠️ Informe a data da alta."
+    );
+
+    return;
+
+  }
+
+
+
+  // Preenche o documento
+
+  document.getElementById("pdfPaciente").textContent =
+    paciente;
+
+
+  document.getElementById("pdfDiagnostico").textContent =
+    diagnostico || "Não informado";
+
+
+  document.getElementById("pdfMotivo").textContent =
+    motivo;
+
+
+  document.getElementById("pdfObservacoes").textContent =
+    observacoes || "Nenhuma observação.";
+
+
+
+  // Formata data
+
+  const partes =
+    data.split("-");
+
+
+  if (partes.length === 3) {
+
+    document.getElementById("pdfData").textContent =
+      `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+  } else {
+
+    document.getElementById("pdfData").textContent =
+      data;
+
+  }
+
+
+
+  // Fecha formulário
+
+  fecharFormularioAlta();
+
+
+
+  // Imprime / salva PDF
+
+  setTimeout(function() {
+
+    window.print();
+
+  }, 300);
+
+}
+
+
+
+// =====================================================
+// FECHAR CLICANDO FORA
+// =====================================================
+
+document
+  .getElementById("modalAlta")
+  .addEventListener("click", function(event) {
+
+    if (event.target === this) {
+
+      fecharFormularioAlta();
+
+    }
+
+  });
+
+
+</script>
+
+
+<!-- =====================================================
+     CSS DA ALTA
+     ===================================================== -->
+
+<style>
+
+.btn-alta-novo {
+
+  background: #dc3545;
+
+  color: white;
+
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  margin-top: 8px;
+
+}
+
+
+.btn-alta-novo:hover {
+
+  background: #bb2d3b;
+
+}
+
+
+.modal-alta {
+
+  display: none;
+
+  position: fixed;
+
+  z-index: 99999;
+
+  left: 0;
+
+  top: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: rgba(0,0,0,0.65);
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+}
+
+
+.caixa-alta {
+
+  background: white;
+
+  width: 100%;
+
+  max-width: 600px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 25px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+  box-sizing: border-box;
+
+}
+
+
+.caixa-alta h2 {
+
+  margin-top: 0;
+
+  text-align: center;
+
+  color: #333;
+
+}
+
+
+.campo-alta {
+
+  margin-bottom: 16px;
+
+}
+
+
+.campo-alta label {
+
+  display: block;
+
+  font-weight: bold;
+
+  margin-bottom: 6px;
+
+}
+
+
+.campo-alta input,
+.campo-alta textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 6px;
+
+  font-size: 15px;
+
+  font-family: Arial, sans-serif;
+
+}
+
+
+.campo-alta textarea {
+
+  resize: vertical;
+
+}
+
+
+.campo-alta input[readonly] {
+
+  background: #f2f2f2;
+
+}
+
+
+.botoes-alta {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+}
+
+
+.btn-gerar-alta {
+
+  flex: 1;
+
+  background: #198754;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+}
+
+
+.btn-cancelar-alta {
+
+  flex: 1;
+
+  background: #6c757d;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+}
+
+
+#documentoAlta {
+
+  display: none;
+
+}
+
+
+.cabecalho-pdf {
+
+  text-align: center;
+
+  border-bottom: 2px solid #000;
+
+  padding-bottom: 15px;
+
+  margin-bottom: 25px;
+
+}
+
+
+#pdfMotivo,
+#pdfObservacoes {
+
+  white-space: pre-wrap;
+
+  line-height: 1.6;
+
+}
+
+
+.assinatura-pdf {
+
+  margin-top: 100px;
+
+  text-align: center;
+
+}
+
+
+@media print {
+
+  body * {
+
+    visibility: hidden;
+
+  }
+
+
+  #documentoAlta,
+  #documentoAlta * {
+
+    visibility: visible;
+
+  }
+
+
+  #documentoAlta {
+
+    display: block;
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    background: white;
+
+    color: black;
+
+    font-family: Arial, sans-serif;
+
+  }
+
+
+  @page {
+
+    size: A4;
+
+    margin: 15mm;
+
+  }
+
+}
+
+</style>
+
+
 </body>
+
 </html>
