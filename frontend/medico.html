@@ -1,8 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Painel Médico</title>
+
   <link rel="stylesheet" href="css/style.css">
+
   <style>
+
+    /* =====================================================
+       BOTÃO DA TV
+       ===================================================== */
+
     .btn-tv {
       background: #28a745;
       color: white;
@@ -13,7 +27,11 @@
       font-size: 14px;
       margin-top: 8px;
     }
-    .btn-tv:hover { background: #1e7e34; }
+
+    .btn-tv:hover {
+      background: #1e7e34;
+    }
+
 
     .btn-abrir-tv {
       background: #17a2b8;
@@ -24,7 +42,15 @@
       font-size: 14px;
       cursor: pointer;
     }
-    .btn-abrir-tv:hover { background: #117a8b; }
+
+    .btn-abrir-tv:hover {
+      background: #117a8b;
+    }
+
+
+    /* =====================================================
+       CONSULTÓRIO
+       ===================================================== */
 
     .consultorio-input {
       display: flex;
@@ -50,262 +76,492 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
+
+    /* =====================================================
+       BOTÃO DAR ALTA
+       ===================================================== */
+
+    .btn-alta {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .btn-alta:hover {
+      background: #bb2d3b;
+    }
+
+
+    /* =====================================================
+       MODAL DE ALTA
+       ===================================================== */
+
+    .modal-alta {
+      display: none;
+
+      position: fixed;
+
+      z-index: 99999;
+
+      left: 0;
+      top: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: rgba(0, 0, 0, 0.65);
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      box-sizing: border-box;
+    }
+
+
+    .caixa-alta {
+      background: white;
+
+      width: 100%;
+      max-width: 600px;
+
+      max-height: 90vh;
+
+      overflow-y: auto;
+
+      padding: 25px;
+
+      border-radius: 12px;
+
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+      box-sizing: border-box;
+    }
+
+
+    .caixa-alta h2 {
+      margin-top: 0;
+
+      margin-bottom: 25px;
+
+      text-align: center;
+
+      color: #333;
+    }
+
+
+    .campo-alta {
+      margin-bottom: 16px;
+    }
+
+
+    .campo-alta label {
+      display: block;
+
+      font-weight: bold;
+
+      margin-bottom: 6px;
+
+      color: #333;
+    }
+
+
+    .campo-alta input,
+    .campo-alta textarea {
+
+      width: 100%;
+
+      box-sizing: border-box;
+
+      padding: 11px;
+
+      border: 1px solid #ccc;
+
+      border-radius: 6px;
+
+      font-size: 15px;
+
+      font-family: Arial, sans-serif;
+    }
+
+
+    .campo-alta textarea {
+      resize: vertical;
+    }
+
+
+    .campo-alta input[readonly] {
+      background: #f2f2f2;
+    }
+
+
+    /* =====================================================
+       BOTÕES DO FORMULÁRIO
+       ===================================================== */
+
+    .botoes-alta {
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+
+    .btn-gerar-alta {
+      flex: 1;
+
+      background: #198754;
+
+      color: white;
+
+      border: none;
+
+      padding: 12px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: bold;
+    }
+
+
+    .btn-gerar-alta:hover {
+      background: #157347;
+    }
+
+
+    .btn-cancelar-alta {
+      flex: 1;
+
+      background: #6c757d;
+
+      color: white;
+
+      border: none;
+
+      padding: 12px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: bold;
+    }
+
+
+    .btn-cancelar-alta:hover {
+      background: #5c636a;
+    }
+
+
+    /* =====================================================
+       DOCUMENTO DA ALTA
+       ===================================================== */
+
+    #documentoAlta {
+      display: none;
+    }
+
+
+    .cabecalho-pdf {
+      text-align: center;
+
+      border-bottom: 2px solid #000;
+
+      padding-bottom: 15px;
+
+      margin-bottom: 25px;
+    }
+
+
+    .cabecalho-pdf h1 {
+      margin-bottom: 5px;
+    }
+
+
+    .cabecalho-pdf p {
+      margin-top: 0;
+    }
+
+
+    #pdfMotivo,
+    #pdfObservacoes {
+      white-space: pre-wrap;
+
+      line-height: 1.6;
+    }
+
+
+    .assinatura-pdf {
+      margin-top: 100px;
+
+      text-align: center;
+    }
+
+
+    /* =====================================================
+       IMPRESSÃO
+       ===================================================== */
+
+    @media print {
+
+      body * {
+        visibility: hidden;
+      }
+
+
+      #documentoAlta,
+      #documentoAlta * {
+        visibility: visible;
+      }
+
+
+      #documentoAlta {
+
+        display: block;
+
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 40px;
+
+        box-sizing: border-box;
+
+        background: white;
+
+        color: black;
+
+        font-family: Arial, sans-serif;
+      }
+
+
+      @page {
+        size: A4;
+
+        margin: 15mm;
+      }
+
+    }
+
+
+    /* =====================================================
+       CELULAR
+       ===================================================== */
+
+    @media (max-width: 600px) {
+
+      .consultorio-input {
+        flex-wrap: wrap;
+      }
+
+      .botoes-alta {
+        flex-direction: column;
+      }
+
+      .caixa-alta {
+        padding: 18px;
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-  <!-- Cabeçalho com botão da TV -->
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-    <h2 style="margin:0;">🩺 Painel Médico</h2>
-    <button class="btn-abrir-tv" onclick="window.open('tv.html','_blank')">📺 Abrir Tela da TV</button>
+
+  <!-- =====================================================
+       CABEÇALHO
+       ===================================================== -->
+
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    "
+  >
+
+    <h2 style="margin:0;">
+      🩺 Painel Médico
+    </h2>
+
+
+    <button
+      class="btn-abrir-tv"
+      onclick="window.open('tv.html','_blank')"
+    >
+      📺 Abrir Tela da TV
+    </button>
+
   </div>
 
-  <!-- Campo criado para informar o consultório e chamar o paciente na TV -->
+
+  <!-- =====================================================
+       CONSULTÓRIO
+       ===================================================== -->
+
   <div class="consultorio-input">
-    <label>Meu Consultório:</label>
-    <input type="text" id="consultorio-num" value="01">
-    <span style="color:#666; font-size:13px;">Este número será exibido na TV ao chamar o paciente.</span>
+
+    <label>
+      Meu Consultório:
+    </label>
+
+
+    <input
+      type="text"
+      id="consultorio-num"
+      value="01"
+    >
+
+
+    <span
+      style="
+        color:#666;
+        font-size:13px;
+      "
+    >
+      Este número será exibido na TV ao chamar o paciente.
+    </span>
+
   </div>
+
+
+  <!-- =====================================================
+       TRIAGENS
+       ===================================================== -->
 
   <div id="triagens"></div>
 
+
   <hr>
 
-  <h3>Consulta</h3>
 
-  <input id="paciente" placeholder="Paciente" readonly>
-  <input id="diagnostico" placeholder="Diagnóstico">
+  <!-- =====================================================
+       CONSULTA
+       ===================================================== -->
+
+  <h3>
+    Consulta
+  </h3>
+
+
+  <input
+    id="paciente"
+    placeholder="Paciente"
+    readonly
+  >
+
+
+  <input
+    id="diagnostico"
+    placeholder="Diagnóstico"
+  >
+
 
   <select id="medicacao">
-    <option value="">Selecione a medicação</option>
+
+    <option value="">
+      Selecione a medicação
+    </option>
+
   </select>
 
-  <textarea id="obs" placeholder="Observações"></textarea>
 
-  <button onclick="salvar()">Salvar</button>
+  <textarea
+    id="obs"
+    placeholder="Observações"
+  ></textarea>
+
+
+  <button onclick="salvar()">
+    Salvar
+  </button>
+
 
 </div>
 
-<script>
-
-let triagensCarregadas = [];
-
-function carregar() {
-  fetch("/triagens")
-    .then(r => r.json())
-    .then(data => {
-      triagensCarregadas = data;
-
-      const div = document.getElementById("triagens");
-      div.innerHTML = "";
-
-      if (data.length === 0) {
-        div.innerHTML = "<p style='color:#888; text-align:center;'>Nenhum paciente na fila.</p>";
-        return;
-      }
-
-      data.forEach((t, index) => {
-        div.innerHTML += `
-          <div class="card">
-            <h3>${t.nome}</h3>
-            <p><b>Sintoma:</b> ${t.sintoma || "Não informado"}</p>
-            <p><b>Temperatura:</b> ${t.temperatura || "Não informada"}°C</p>
-            <p><span class="${t.risco}">${t.risco}</span></p>
-            <p><b>Alergia:</b> ${t.alergia || "Nenhuma"}</p>
-            <p><b>Observação:</b> ${t.observacao || "Nenhuma"}</p>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button onclick="selecionar(${index})">Atender</button>
-              <button class="btn-tv" onclick="chamarNaTV('${t.nome}')">📺 Chamar na TV</button>
-            </div>
-          </div>
-        `;
-      });
-    });
-}
-
-// Função criada para enviar o nome do paciente para a TV quando ele for chamado no consultório.
-function chamarNaTV(nome) {
-  const consultorio = document.getElementById("consultorio-num").value || "01";
-  fetch("/tv/chamar", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      localTipo: "CONSULTÓRIO",
-      localNumero: consultorio,
-      paciente: nome
-    })
-  })
-  .then(r => r.json())
-  .then(() => {
-    alert("✅ " + nome + " foi chamado na TV para o Consultório " + consultorio + "!");
-  });
-}
-
-function selecionar(index) {
-  const t = triagensCarregadas[index];
-  document.getElementById("paciente").value = t.nome;
-  document.getElementById("obs").value = t.observacao || "";
-
-  if (t.alergia && t.alergia !== "Nenhuma") {
-    alert("⚠️ Paciente possui alergia: " + t.alergia);
-  }
-}
-
-function carregarMedicacoes() {
-  fetch("/lista-medicacoes")
-    .then(r => r.json())
-    .then(data => {
-      const select = document.getElementById("medicacao");
-      select.innerHTML = `<option value="">Selecione a medicação</option>`;
-      data.forEach(med => {
-        const option = document.createElement("option");
-        option.value = med;
-        option.textContent = med;
-        select.appendChild(option);
-      });
-    });
-}
-
-function salvar() {
-  const paciente = document.getElementById("paciente").value;
-  const diagnostico = document.getElementById("diagnostico").value;
-  const medicacao = document.getElementById("medicacao").value;
-  const obs = document.getElementById("obs").value;
-
-  if (!paciente) { alert("Selecione um paciente clicando em Atender."); return; }
-  if (!medicacao) { alert("Selecione uma medicação."); return; }
-
-  fetch("/consulta", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ paciente, diagnostico, medicacao, obs })
-  })
-  .then(r => r.json())
-  .then(() => {
-    alert("Consulta salva");
-    document.getElementById("diagnostico").value = "";
-    document.getElementById("medicacao").value = "";
-    document.getElementById("obs").value = "";
-  });
-}
-
-carregar();
-carregarMedicacoes();
-
-// Atualiza lista automaticamente a cada 10 segundos
-setInterval(carregar, 10000);
-
-</script>
 
 
 <!-- =====================================================
-     NOVA FUNÇÃO: ALTA
-     
-     TUDO ABAIXO DESTE PONTO É NOVO.
-     O CÓDIGO ACIMA NÃO FOI ALTERADO.
+     MODAL DE ALTA
      ===================================================== -->
 
+<div
+  id="modalAlta"
+  class="modal-alta"
+>
 
-<!-- BOTÃO DAR ALTA SERÁ ADICIONADO AOS CARDS
-     ATRAVÉS DE JAVASCRIPT, SEM ALTERAR A FUNÇÃO carregar()
--->
-
-<script>
-
-(function adicionarBotaoAlta() {
-
-  const carregarOriginal = window.carregar;
-
-  window.carregar = function() {
-
-    const resultado = carregarOriginal();
-
-    setTimeout(function() {
-
-      const cards =
-        document.querySelectorAll("#triagens .card");
-
-      cards.forEach(function(card, index) {
-
-        // Evita criar o botão duas vezes
-        if (card.querySelector(".btn-alta-novo")) {
-          return;
-        }
-
-        const botao = document.createElement("button");
-
-        botao.className = "btn-alta-novo";
-
-        botao.innerHTML = "🏥 Dar Alta";
-
-        botao.onclick = function() {
-
-          const paciente =
-            triagensCarregadas[index];
-
-          if (!paciente) {
-            alert("Paciente não encontrado.");
-            return;
-          }
-
-          abrirFormularioAlta(
-            paciente.nome,
-            paciente.diagnostico || ""
-          );
-
-        };
-
-        card.appendChild(botao);
-
-      });
-
-    }, 100);
-
-    return resultado;
-
-  };
-
-})();
-
-</script>
-
-
-<!-- =====================================================
-     FORMULÁRIO DE ALTA
-     ===================================================== -->
-
-<div id="modalAlta" class="modal-alta">
 
   <div class="caixa-alta">
 
-    <h2>🏥 Alta do Paciente</h2>
+
+    <h2>
+      🏥 Dar Alta ao Paciente
+    </h2>
+
+
+    <!-- PACIENTE -->
 
     <div class="campo-alta">
 
-      <label>Paciente</label>
+      <label>
+        Paciente
+      </label>
 
       <input
         type="text"
         id="altaPaciente"
-        readonly>
+        readonly
+      >
 
     </div>
 
 
+    <!-- DIAGNÓSTICO -->
+
     <div class="campo-alta">
 
-      <label>Diagnóstico</label>
+      <label>
+        Diagnóstico
+      </label>
 
       <input
         type="text"
         id="altaDiagnostico"
-        readonly>
+        readonly
+      >
 
     </div>
 
+
+    <!-- MOTIVO DA ALTA -->
 
     <div class="campo-alta">
 
@@ -317,10 +573,12 @@ setInterval(carregar, 10000);
         id="motivoAlta"
         rows="5"
         placeholder="Informe o motivo da alta..."
-        required></textarea>
+      ></textarea>
 
     </div>
 
+
+    <!-- OBSERVAÇÕES -->
 
     <div class="campo-alta">
 
@@ -331,10 +589,13 @@ setInterval(carregar, 10000);
       <textarea
         id="observacoesAlta"
         rows="4"
-        placeholder="Digite observações adicionais..."></textarea>
+        placeholder="Digite observações adicionais..."
+      ></textarea>
 
     </div>
 
+
+    <!-- DATA -->
 
     <div class="campo-alta">
 
@@ -345,17 +606,21 @@ setInterval(carregar, 10000);
       <input
         type="date"
         id="dataAlta"
-        required>
+      >
 
     </div>
 
 
+    <!-- BOTÕES -->
+
     <div class="botoes-alta">
+
 
       <button
         type="button"
         class="btn-gerar-alta"
-        onclick="gerarAltaPDF()">
+        onclick="gerarAltaPDF()"
+      >
 
         📄 Gerar PDF
 
@@ -365,24 +630,29 @@ setInterval(carregar, 10000);
       <button
         type="button"
         class="btn-cancelar-alta"
-        onclick="fecharFormularioAlta()">
+        onclick="fecharFormularioAlta()"
+      >
 
         Cancelar
 
       </button>
 
+
     </div>
+
 
   </div>
 
 </div>
 
 
+
 <!-- =====================================================
-     DOCUMENTO PARA PDF
+     DOCUMENTO QUE SERÁ IMPRESSO COMO PDF
      ===================================================== -->
 
 <div id="documentoAlta">
+
 
   <div class="cabecalho-pdf">
 
@@ -398,20 +668,35 @@ setInterval(carregar, 10000);
 
 
   <p>
-    <strong>Paciente:</strong>
+
+    <strong>
+      Paciente:
+    </strong>
+
     <span id="pdfPaciente"></span>
+
   </p>
 
 
   <p>
-    <strong>Diagnóstico:</strong>
+
+    <strong>
+      Diagnóstico:
+    </strong>
+
     <span id="pdfDiagnostico"></span>
+
   </p>
 
 
   <p>
-    <strong>Data da Alta:</strong>
+
+    <strong>
+      Data da Alta:
+    </strong>
+
     <span id="pdfData"></span>
+
   </p>
 
 
@@ -422,12 +707,14 @@ setInterval(carregar, 10000);
     Motivo da Alta
   </h3>
 
+
   <p id="pdfMotivo"></p>
 
 
   <h3>
     Observações
   </h3>
+
 
   <p id="pdfObservacoes"></p>
 
@@ -436,72 +723,526 @@ setInterval(carregar, 10000);
 
     ______________________________________
 
-    <br>
+    <br><br>
 
     Responsável pela alta
 
   </div>
 
+
 </div>
 
 
-<!-- =====================================================
-     JAVASCRIPT DA ALTA
-     ===================================================== -->
 
 <script>
 
 
-// =====================================================
-// ABRIR FORMULÁRIO
-// =====================================================
+/* =====================================================
+   VARIÁVEL DOS PACIENTES
+   ===================================================== */
 
-function abrirFormularioAlta(
-  paciente,
-  diagnostico
-) {
+let triagensCarregadas = [];
 
-  document.getElementById("modalAlta").style.display =
-    "flex";
 
+
+/* =====================================================
+   CARREGAR PACIENTES
+   ===================================================== */
+
+function carregar() {
+
+  fetch("/triagens")
+
+    .then(r => r.json())
+
+    .then(data => {
+
+      triagensCarregadas = data;
+
+
+      const div =
+        document.getElementById("triagens");
+
+
+      div.innerHTML = "";
+
+
+      if (data.length === 0) {
+
+        div.innerHTML = `
+          <p style="
+            color:#888;
+            text-align:center;
+          ">
+            Nenhum paciente na fila.
+          </p>
+        `;
+
+        return;
+      }
+
+
+      data.forEach((t, index) => {
+
+        div.innerHTML += `
+
+          <div class="card">
+
+            <h3>
+              ${t.nome}
+            </h3>
+
+
+            <p>
+              <b>Sintoma:</b>
+              ${t.sintoma || "Não informado"}
+            </p>
+
+
+            <p>
+              <b>Temperatura:</b>
+              ${t.temperatura || "Não informada"}°C
+            </p>
+
+
+            <p>
+              <span class="${t.risco}">
+                ${t.risco}
+              </span>
+            </p>
+
+
+            <p>
+              <b>Alergia:</b>
+              ${t.alergia || "Nenhuma"}
+            </p>
+
+
+            <p>
+              <b>Observação:</b>
+              ${t.observacao || "Nenhuma"}
+            </p>
+
+
+            <div
+              style="
+                display:flex;
+                gap:8px;
+                flex-wrap:wrap;
+              "
+            >
+
+
+              <!-- ATENDER -->
+
+              <button
+                onclick="selecionar(${index})"
+              >
+                Atender
+              </button>
+
+
+              <!-- TV -->
+
+              <button
+                class="btn-tv"
+                onclick="chamarNaTV('${t.nome.replace(/'/g, "\\'")}')"
+              >
+                📺 Chamar na TV
+              </button>
+
+
+              <!-- ALTA -->
+
+              <button
+                class="btn-alta"
+                onclick="abrirFormularioAlta(${index})"
+              >
+                🏥 Dar Alta
+              </button>
+
+
+            </div>
+
+
+          </div>
+
+        `;
+
+      });
+
+    })
+
+    .catch(error => {
+
+      console.error(
+        "Erro ao carregar triagens:",
+        error
+      );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CHAMAR NA TV
+   ===================================================== */
+
+function chamarNaTV(nome) {
+
+  const consultorio =
+    document
+      .getElementById("consultorio-num")
+      .value || "01";
+
+
+  fetch("/tv/chamar", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      localTipo: "CONSULTÓRIO",
+
+      localNumero: consultorio,
+
+      paciente: nome
+
+    })
+
+  })
+
+  .then(r => r.json())
+
+  .then(() => {
+
+    alert(
+      "✅ " +
+      nome +
+      " foi chamado na TV para o Consultório " +
+      consultorio +
+      "!"
+    );
+
+  })
+
+  .catch(error => {
+
+    console.error(error);
+
+    alert(
+      "❌ Erro ao chamar paciente na TV."
+    );
+
+  });
+
+}
+
+
+
+/* =====================================================
+   SELECIONAR PACIENTE
+   ===================================================== */
+
+function selecionar(index) {
+
+  const t =
+    triagensCarregadas[index];
+
+
+  if (!t) {
+
+    alert(
+      "Paciente não encontrado."
+    );
+
+    return;
+  }
+
+
+  document.getElementById("paciente").value =
+    t.nome;
+
+
+  document.getElementById("obs").value =
+    t.observacao || "";
+
+
+  if (
+    t.alergia &&
+    t.alergia !== "Nenhuma"
+  ) {
+
+    alert(
+      "⚠️ Paciente possui alergia: " +
+      t.alergia
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   CARREGAR MEDICAÇÕES
+   ===================================================== */
+
+function carregarMedicacoes() {
+
+  fetch("/lista-medicacoes")
+
+    .then(r => r.json())
+
+    .then(data => {
+
+      const select =
+        document.getElementById("medicacao");
+
+
+      select.innerHTML = `
+        <option value="">
+          Selecione a medicação
+        </option>
+      `;
+
+
+      data.forEach(med => {
+
+        const option =
+          document.createElement("option");
+
+
+        option.value = med;
+
+        option.textContent = med;
+
+
+        select.appendChild(option);
+
+      });
+
+    })
+
+    .catch(error => {
+
+      console.error(
+        "Erro ao carregar medicações:",
+        error
+      );
+
+    });
+
+}
+
+
+
+/* =====================================================
+   SALVAR CONSULTA
+   ===================================================== */
+
+function salvar() {
+
+  const paciente =
+    document
+      .getElementById("paciente")
+      .value;
+
+
+  const diagnostico =
+    document
+      .getElementById("diagnostico")
+      .value;
+
+
+  const medicacao =
+    document
+      .getElementById("medicacao")
+      .value;
+
+
+  const obs =
+    document
+      .getElementById("obs")
+      .value;
+
+
+  if (!paciente) {
+
+    alert(
+      "Selecione um paciente clicando em Atender."
+    );
+
+    return;
+  }
+
+
+  if (!medicacao) {
+
+    alert(
+      "Selecione uma medicação."
+    );
+
+    return;
+  }
+
+
+  fetch("/consulta", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+
+      paciente,
+      diagnostico,
+      medicacao,
+      obs
+
+    })
+
+  })
+
+  .then(r => r.json())
+
+  .then(() => {
+
+    alert(
+      "Consulta salva"
+    );
+
+
+    document.getElementById("diagnostico").value =
+      "";
+
+
+    document.getElementById("medicacao").value =
+      "";
+
+
+    document.getElementById("obs").value =
+      "";
+
+  })
+
+  .catch(error => {
+
+    console.error(error);
+
+    alert(
+      "❌ Erro ao salvar consulta."
+    );
+
+  });
+
+}
+
+
+
+/* =====================================================
+   ABRIR FORMULÁRIO DE ALTA
+   ===================================================== */
+
+function abrirFormularioAlta(index) {
+
+  const paciente =
+    triagensCarregadas[index];
+
+
+  if (!paciente) {
+
+    alert(
+      "Paciente não encontrado."
+    );
+
+    return;
+  }
+
+
+  /* Nome do paciente */
 
   document.getElementById("altaPaciente").value =
-    paciente || "";
+    paciente.nome || "";
+
+
+  /*
+   * Pega o diagnóstico que está no paciente.
+   * Caso não exista, pega o diagnóstico que está
+   * preenchido na consulta.
+   */
+
+  const diagnostico =
+    paciente.diagnostico ||
+    document
+      .getElementById("diagnostico")
+      .value ||
+    "";
 
 
   document.getElementById("altaDiagnostico").value =
-    diagnostico || "";
+    diagnostico;
 
+
+  /* Limpar motivo */
 
   document.getElementById("motivoAlta").value =
     "";
 
 
+  /* Limpar observações */
+
   document.getElementById("observacoesAlta").value =
     "";
 
 
-  // Data atual
+  /* ===================================================
+     DATA ATUAL
+     =================================================== */
 
-  const hoje = new Date();
+  const hoje =
+    new Date();
+
 
   const ano =
     hoje.getFullYear();
 
+
   const mes =
-    String(hoje.getMonth() + 1)
-      .padStart(2, "0");
+    String(
+      hoje.getMonth() + 1
+    ).padStart(2, "0");
+
 
   const dia =
-    String(hoje.getDate())
-      .padStart(2, "0");
+    String(
+      hoje.getDate()
+    ).padStart(2, "0");
 
 
   document.getElementById("dataAlta").value =
     `${ano}-${mes}-${dia}`;
 
 
-  setTimeout(function() {
+  /* ===================================================
+     ABRIR MODAL
+     =================================================== */
+
+  document.getElementById("modalAlta").style.display =
+    "flex";
+
+
+  /* Colocar cursor no motivo */
+
+  setTimeout(() => {
 
     document
       .getElementById("motivoAlta")
@@ -513,9 +1254,9 @@ function abrirFormularioAlta(
 
 
 
-// =====================================================
-// FECHAR FORMULÁRIO
-// =====================================================
+/* =====================================================
+   FECHAR FORMULÁRIO DE ALTA
+   ===================================================== */
 
 function fecharFormularioAlta() {
 
@@ -526,48 +1267,74 @@ function fecharFormularioAlta() {
 
 
 
-// =====================================================
-// GERAR PDF
-// =====================================================
+/* =====================================================
+   GERAR PDF
+   ===================================================== */
 
 function gerarAltaPDF() {
 
-
   const paciente =
-    document.getElementById("altaPaciente").value;
+    document
+      .getElementById("altaPaciente")
+      .value
+      .trim();
 
 
   const diagnostico =
-    document.getElementById("altaDiagnostico").value;
+    document
+      .getElementById("altaDiagnostico")
+      .value
+      .trim();
 
 
   const motivo =
-    document.getElementById("motivoAlta").value;
+    document
+      .getElementById("motivoAlta")
+      .value
+      .trim();
 
 
   const observacoes =
-    document.getElementById("observacoesAlta").value;
+    document
+      .getElementById("observacoesAlta")
+      .value
+      .trim();
 
 
   const data =
-    document.getElementById("dataAlta").value;
+    document
+      .getElementById("dataAlta")
+      .value;
 
 
 
-  // Verificação
+  /* ===================================================
+     VALIDAÇÕES
+     =================================================== */
 
-  if (!motivo.trim()) {
+  if (!paciente) {
+
+    alert(
+      "⚠️ Paciente não informado."
+    );
+
+    return;
+  }
+
+
+  if (!motivo) {
 
     alert(
       "⚠️ Informe o motivo da alta."
     );
 
+
     document
       .getElementById("motivoAlta")
       .focus();
 
-    return;
 
+    return;
   }
 
 
@@ -578,59 +1345,69 @@ function gerarAltaPDF() {
     );
 
     return;
-
   }
 
 
 
-  // Preenche o documento
+  /* ===================================================
+     PREENCHER DOCUMENTO
+     =================================================== */
 
-  document.getElementById("pdfPaciente").textContent =
+  document
+    .getElementById("pdfPaciente")
+    .textContent =
     paciente;
 
 
-  document.getElementById("pdfDiagnostico").textContent =
-    diagnostico || "Não informado";
+  document
+    .getElementById("pdfDiagnostico")
+    .textContent =
+    diagnostico ||
+    "Não informado";
 
 
-  document.getElementById("pdfMotivo").textContent =
+  document
+    .getElementById("pdfMotivo")
+    .textContent =
     motivo;
 
 
-  document.getElementById("pdfObservacoes").textContent =
-    observacoes || "Nenhuma observação.";
+  document
+    .getElementById("pdfObservacoes")
+    .textContent =
+    observacoes ||
+    "Nenhuma observação.";
 
 
 
-  // Formata data
+  /* ===================================================
+     FORMATAR DATA
+     =================================================== */
 
   const partes =
     data.split("-");
 
 
-  if (partes.length === 3) {
-
-    document.getElementById("pdfData").textContent =
-      `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-  } else {
-
-    document.getElementById("pdfData").textContent =
-      data;
-
-  }
+  document
+    .getElementById("pdfData")
+    .textContent =
+    `${partes[2]}/${partes[1]}/${partes[0]}`;
 
 
 
-  // Fecha formulário
+  /* ===================================================
+     FECHAR MODAL
+     =================================================== */
 
   fecharFormularioAlta();
 
 
 
-  // Imprime / salva PDF
+  /* ===================================================
+     ABRIR IMPRESSÃO
+     =================================================== */
 
-  setTimeout(function() {
+  setTimeout(() => {
 
     window.print();
 
@@ -640,326 +1417,76 @@ function gerarAltaPDF() {
 
 
 
-// =====================================================
-// FECHAR CLICANDO FORA
-// =====================================================
+/* =====================================================
+   FECHAR MODAL CLICANDO FORA
+   ===================================================== */
 
 document
   .getElementById("modalAlta")
-  .addEventListener("click", function(event) {
+  .addEventListener(
+    "click",
+    function(event) {
 
-    if (event.target === this) {
+      if (event.target === this) {
 
-      fecharFormularioAlta();
+        fecharFormularioAlta();
+
+      }
+
+    }
+  );
+
+
+
+/* =====================================================
+   FECHAR COM ESC
+   ===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (event.key === "Escape") {
+
+      const modal =
+        document.getElementById("modalAlta");
+
+
+      if (
+        modal.style.display === "flex"
+      ) {
+
+        fecharFormularioAlta();
+
+      }
 
     }
 
-  });
+  }
+);
 
+
+
+/* =====================================================
+   INICIAR SISTEMA
+   ===================================================== */
+
+carregar();
+
+carregarMedicacoes();
+
+
+
+/* =====================================================
+   ATUALIZAR FILA A CADA 10 SEGUNDOS
+   ===================================================== */
+
+setInterval(
+  carregar,
+  10000
+);
 
 </script>
-
-
-<!-- =====================================================
-     CSS DA ALTA
-     ===================================================== -->
-
-<style>
-
-.btn-alta-novo {
-
-  background: #dc3545;
-
-  color: white;
-
-  border: none;
-
-  padding: 8px 14px;
-
-  border-radius: 5px;
-
-  cursor: pointer;
-
-  font-size: 14px;
-
-  margin-top: 8px;
-
-}
-
-
-.btn-alta-novo:hover {
-
-  background: #bb2d3b;
-
-}
-
-
-.modal-alta {
-
-  display: none;
-
-  position: fixed;
-
-  z-index: 99999;
-
-  left: 0;
-
-  top: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  background: rgba(0,0,0,0.65);
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 20px;
-
-  box-sizing: border-box;
-
-}
-
-
-.caixa-alta {
-
-  background: white;
-
-  width: 100%;
-
-  max-width: 600px;
-
-  max-height: 90vh;
-
-  overflow-y: auto;
-
-  padding: 25px;
-
-  border-radius: 12px;
-
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-
-  box-sizing: border-box;
-
-}
-
-
-.caixa-alta h2 {
-
-  margin-top: 0;
-
-  text-align: center;
-
-  color: #333;
-
-}
-
-
-.campo-alta {
-
-  margin-bottom: 16px;
-
-}
-
-
-.campo-alta label {
-
-  display: block;
-
-  font-weight: bold;
-
-  margin-bottom: 6px;
-
-}
-
-
-.campo-alta input,
-.campo-alta textarea {
-
-  width: 100%;
-
-  box-sizing: border-box;
-
-  padding: 11px;
-
-  border: 1px solid #ccc;
-
-  border-radius: 6px;
-
-  font-size: 15px;
-
-  font-family: Arial, sans-serif;
-
-}
-
-
-.campo-alta textarea {
-
-  resize: vertical;
-
-}
-
-
-.campo-alta input[readonly] {
-
-  background: #f2f2f2;
-
-}
-
-
-.botoes-alta {
-
-  display: flex;
-
-  gap: 10px;
-
-  margin-top: 20px;
-
-}
-
-
-.btn-gerar-alta {
-
-  flex: 1;
-
-  background: #198754;
-
-  color: white;
-
-  border: none;
-
-  padding: 12px;
-
-  border-radius: 6px;
-
-  cursor: pointer;
-
-  font-size: 15px;
-
-  font-weight: bold;
-
-}
-
-
-.btn-cancelar-alta {
-
-  flex: 1;
-
-  background: #6c757d;
-
-  color: white;
-
-  border: none;
-
-  padding: 12px;
-
-  border-radius: 6px;
-
-  cursor: pointer;
-
-  font-size: 15px;
-
-  font-weight: bold;
-
-}
-
-
-#documentoAlta {
-
-  display: none;
-
-}
-
-
-.cabecalho-pdf {
-
-  text-align: center;
-
-  border-bottom: 2px solid #000;
-
-  padding-bottom: 15px;
-
-  margin-bottom: 25px;
-
-}
-
-
-#pdfMotivo,
-#pdfObservacoes {
-
-  white-space: pre-wrap;
-
-  line-height: 1.6;
-
-}
-
-
-.assinatura-pdf {
-
-  margin-top: 100px;
-
-  text-align: center;
-
-}
-
-
-@media print {
-
-  body * {
-
-    visibility: hidden;
-
-  }
-
-
-  #documentoAlta,
-  #documentoAlta * {
-
-    visibility: visible;
-
-  }
-
-
-  #documentoAlta {
-
-    display: block;
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    padding: 40px;
-
-    box-sizing: border-box;
-
-    background: white;
-
-    color: black;
-
-    font-family: Arial, sans-serif;
-
-  }
-
-
-  @page {
-
-    size: A4;
-
-    margin: 15mm;
-
-  }
-
-}
-
-</style>
 
 
 </body>
