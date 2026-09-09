@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -388,12 +389,9 @@
 
 </head>
 
-
 <body>
 
-
 <div class="container">
-
 
   <!-- =====================================================
        CABEÇALHO
@@ -408,20 +406,21 @@
     "
   >
 
-    <h2 style="margin:0;">
-      🩺 Painel Médico
-    </h2>
+```
+<h2 style="margin:0;">
+  🩺 Painel Médico
+</h2>
 
 
-    <button
-      class="btn-abrir-tv"
-      onclick="window.open('tv.html','_blank')"
-    >
-      📺 Abrir Tela da TV
-    </button>
+<button
+  class="btn-abrir-tv"
+  onclick="window.open('tv.html','_blank')"
+>
+  📺 Abrir Tela da TV
+</button>
+```
 
   </div>
-
 
   <!-- =====================================================
        CONSULTÓRIO
@@ -429,29 +428,30 @@
 
   <div class="consultorio-input">
 
-    <label>
-      Meu Consultório:
-    </label>
+```
+<label>
+  Meu Consultório:
+</label>
 
 
-    <input
-      type="text"
-      id="consultorio-num"
-      value="01"
-    >
+<input
+  type="text"
+  id="consultorio-num"
+  value="01"
+>
 
 
-    <span
-      style="
-        color:#666;
-        font-size:13px;
-      "
-    >
-      Este número será exibido na TV ao chamar o paciente.
-    </span>
+<span
+  style="
+    color:#666;
+    font-size:13px;
+  "
+>
+  Este número será exibido na TV ao chamar o paciente.
+</span>
+```
 
   </div>
-
 
   <!-- =====================================================
        TRIAGENS
@@ -459,9 +459,7 @@
 
   <div id="triagens"></div>
 
-
   <hr>
-
 
   <!-- =====================================================
        CONSULTA
@@ -471,43 +469,39 @@
     Consulta
   </h3>
 
+<input
+id="paciente"
+placeholder="Paciente"
+readonly
 
-  <input
-    id="paciente"
-    placeholder="Paciente"
-    readonly
-  >
+>
 
+<input
+id="diagnostico"
+placeholder="Diagnóstico"
 
-  <input
-    id="diagnostico"
-    placeholder="Diagnóstico"
-  >
-
+>
 
   <select id="medicacao">
 
-    <option value="">
-      Selecione a medicação
-    </option>
+```
+<option value="">
+  Selecione a medicação
+</option>
+```
 
   </select>
-
 
   <textarea
     id="obs"
     placeholder="Observações"
   ></textarea>
 
-
   <button onclick="salvar()">
     Salvar
   </button>
 
-
 </div>
-
-
 
 <!-- =====================================================
      MODAL DE ALTA
@@ -518,231 +512,231 @@
   class="modal-alta"
 >
 
-
   <div class="caixa-alta">
 
-
-    <h2>
-      🏥 Dar Alta ao Paciente
-    </h2>
-
-
-    <!-- PACIENTE -->
-
-    <div class="campo-alta">
-
-      <label>
-        Paciente
-      </label>
-
-      <input
-        type="text"
-        id="altaPaciente"
-        readonly
-      >
-
-    </div>
+```
+<h2>
+  🏥 Dar Alta ao Paciente
+</h2>
 
 
-    <!-- DIAGNÓSTICO -->
+<!-- PACIENTE -->
 
-    <div class="campo-alta">
+<div class="campo-alta">
 
-      <label>
-        Diagnóstico
-      </label>
+  <label>
+    Paciente
+  </label>
 
-      <input
-        type="text"
-        id="altaDiagnostico"
-        readonly
-      >
+  <input
+    type="text"
+    id="altaPaciente"
+    readonly
+  >
 
-    </div>
-
-
-    <!-- MOTIVO DA ALTA -->
-
-    <div class="campo-alta">
-
-      <label>
-        Motivo da Alta *
-      </label>
-
-      <textarea
-        id="motivoAlta"
-        rows="5"
-        placeholder="Informe o motivo da alta..."
-      ></textarea>
-
-    </div>
+</div>
 
 
-    <!-- OBSERVAÇÕES -->
+<!-- DIAGNÓSTICO -->
 
-    <div class="campo-alta">
+<div class="campo-alta">
 
-      <label>
-        Observações
-      </label>
+  <label>
+    Diagnóstico
+  </label>
 
-      <textarea
-        id="observacoesAlta"
-        rows="4"
-        placeholder="Digite observações adicionais..."
-      ></textarea>
+  <input
+    type="text"
+    id="altaDiagnostico"
+    readonly
+  >
 
-    </div>
-
-
-    <!-- DATA -->
-
-    <div class="campo-alta">
-
-      <label>
-        Data da Alta *
-      </label>
-
-      <input
-        type="date"
-        id="dataAlta"
-      >
-
-    </div>
+</div>
 
 
-    <!-- BOTÕES -->
+<!-- MOTIVO DA ALTA -->
 
-    <div class="botoes-alta">
+<div class="campo-alta">
 
+  <label>
+    Motivo da Alta *
+  </label>
 
-      <button
-        type="button"
-        class="btn-gerar-alta"
-        onclick="gerarAltaPDF()"
-      >
+  <textarea
+    id="motivoAlta"
+    rows="5"
+    placeholder="Informe o motivo da alta..."
+  ></textarea>
 
-        📄 Gerar PDF
-
-      </button>
-
-
-      <button
-        type="button"
-        class="btn-cancelar-alta"
-        onclick="fecharFormularioAlta()"
-      >
-
-        Cancelar
-
-      </button>
+</div>
 
 
-    </div>
+<!-- OBSERVAÇÕES -->
 
+<div class="campo-alta">
+
+  <label>
+    Observações
+  </label>
+
+  <textarea
+    id="observacoesAlta"
+    rows="4"
+    placeholder="Digite observações adicionais..."
+  ></textarea>
+
+</div>
+
+
+<!-- DATA -->
+
+<div class="campo-alta">
+
+  <label>
+    Data da Alta *
+  </label>
+
+  <input
+    type="date"
+    id="dataAlta"
+  >
+
+</div>
+
+
+<!-- BOTÕES -->
+
+<div class="botoes-alta">
+
+
+  <button
+    type="button"
+    class="btn-gerar-alta"
+    onclick="gerarAltaPDF()"
+  >
+
+    📄 Gerar PDF
+
+  </button>
+
+
+  <button
+    type="button"
+    class="btn-cancelar-alta"
+    onclick="fecharFormularioAlta()"
+  >
+
+    Cancelar
+
+  </button>
+
+
+</div>
+```
 
   </div>
 
 </div>
 
-
-
 <!-- =====================================================
-     DOCUMENTO QUE SERÁ IMPRESSO COMO PDF
+     DOCUMENTO DA ALTA
      ===================================================== -->
 
 <div id="documentoAlta">
 
-
   <div class="cabecalho-pdf">
 
-    <h1>
-      DOCUMENTO DE ALTA
-    </h1>
+```
+<h1>
+  DOCUMENTO DE ALTA
+</h1>
 
-    <p>
-      Relatório de Alta do Paciente
-    </p>
+<p>
+  Relatório de Alta do Paciente
+</p>
+```
 
   </div>
 
-
   <p>
 
-    <strong>
-      Paciente:
-    </strong>
+```
+<strong>
+  Paciente:
+</strong>
 
-    <span id="pdfPaciente"></span>
+<span id="pdfPaciente"></span>
+```
 
   </p>
 
-
   <p>
 
-    <strong>
-      Diagnóstico:
-    </strong>
+```
+<strong>
+  Diagnóstico:
+</strong>
 
-    <span id="pdfDiagnostico"></span>
+<span id="pdfDiagnostico"></span>
+```
 
   </p>
 
-
   <p>
 
-    <strong>
-      Data da Alta:
-    </strong>
+```
+<strong>
+  Data da Alta:
+</strong>
 
-    <span id="pdfData"></span>
+<span id="pdfData"></span>
+```
 
   </p>
-
 
   <hr>
-
 
   <h3>
     Motivo da Alta
   </h3>
 
-
   <p id="pdfMotivo"></p>
-
 
   <h3>
     Observações
   </h3>
 
-
   <p id="pdfObservacoes"></p>
-
 
   <div class="assinatura-pdf">
 
-    ______________________________________
+```
+______________________________________
 
-    <br><br>
+<br><br>
 
-    Responsável pela alta
+Responsável pela alta
+```
 
   </div>
 
-
 </div>
-
-
 
 <script>
 
 
 /* =====================================================
-   VARIÁVEL DOS PACIENTES
+   VARIÁVEIS
    ===================================================== */
 
 let triagensCarregadas = [];
 
+/*
+ * Guarda o diagnóstico da consulta atual.
+ * O diagnóstico não depende mais apenas do campo HTML.
+ */
+
+let diagnosticoPacienteAtual = "";
 
 
 /* =====================================================
@@ -970,6 +964,23 @@ function selecionar(index) {
     t.nome;
 
 
+  /*
+   * Se o paciente já possuir diagnóstico,
+   * carregá-lo na consulta.
+   */
+
+  document.getElementById("diagnostico").value =
+    t.diagnostico || "";
+
+
+  /*
+   * Guardar o diagnóstico atual.
+   */
+
+  diagnosticoPacienteAtual =
+    t.diagnostico || "";
+
+
   document.getElementById("obs").value =
     t.observacao || "";
 
@@ -1058,7 +1069,8 @@ function salvar() {
   const diagnostico =
     document
       .getElementById("diagnostico")
-      .value;
+      .value
+      .trim();
 
 
   const medicacao =
@@ -1083,6 +1095,20 @@ function salvar() {
   }
 
 
+  if (!diagnostico) {
+
+    alert(
+      "Informe o diagnóstico."
+    );
+
+    document
+      .getElementById("diagnostico")
+      .focus();
+
+    return;
+  }
+
+
   if (!medicacao) {
 
     alert(
@@ -1091,6 +1117,15 @@ function salvar() {
 
     return;
   }
+
+
+  /*
+   * GUARDAR O DIAGNÓSTICO ANTES DE LIMPAR
+   * O CAMPO DO FORMULÁRIO.
+   */
+
+  diagnosticoPacienteAtual =
+    diagnostico;
 
 
   fetch("/consulta", {
@@ -1120,6 +1155,12 @@ function salvar() {
       "Consulta salva"
     );
 
+
+    /*
+     * O campo é limpo visualmente,
+     * mas diagnosticoPacienteAtual continua
+     * guardando o diagnóstico.
+     */
 
     document.getElementById("diagnostico").value =
       "";
@@ -1168,37 +1209,64 @@ function abrirFormularioAlta(index) {
   }
 
 
-  /* Nome do paciente */
+  /* ===================================================
+     PACIENTE
+     =================================================== */
 
   document.getElementById("altaPaciente").value =
     paciente.nome || "";
 
 
+  /* ===================================================
+     DIAGNÓSTICO
+     =================================================== */
+
   /*
-   * Pega o diagnóstico que está no paciente.
-   * Caso não exista, pega o diagnóstico que está
-   * preenchido na consulta.
+   * Tenta encontrar o diagnóstico nesta ordem:
+   *
+   * 1. Diagnóstico retornado pela API.
+   * 2. Diagnóstico guardado durante a consulta.
+   * 3. Diagnóstico ainda presente no campo.
    */
 
-  const diagnostico =
-    paciente.diagnostico ||
-    document
-      .getElementById("diagnostico")
-      .value ||
-    "";
+  let diagnostico =
+    paciente.diagnostico || "";
+
+
+  if (!diagnostico) {
+
+    diagnostico =
+      diagnosticoPacienteAtual;
+
+  }
+
+
+  if (!diagnostico) {
+
+    diagnostico =
+      document
+        .getElementById("diagnostico")
+        .value
+        .trim();
+
+  }
 
 
   document.getElementById("altaDiagnostico").value =
     diagnostico;
 
 
-  /* Limpar motivo */
+  /* ===================================================
+     LIMPAR MOTIVO
+     =================================================== */
 
   document.getElementById("motivoAlta").value =
     "";
 
 
-  /* Limpar observações */
+  /* ===================================================
+     LIMPAR OBSERVAÇÕES
+     =================================================== */
 
   document.getElementById("observacoesAlta").value =
     "";
@@ -1322,6 +1390,16 @@ function gerarAltaPDF() {
   }
 
 
+  if (!diagnostico) {
+
+    alert(
+      "⚠️ Diagnóstico não informado."
+    );
+
+    return;
+  }
+
+
   if (!motivo) {
 
     alert(
@@ -1362,8 +1440,7 @@ function gerarAltaPDF() {
   document
     .getElementById("pdfDiagnostico")
     .textContent =
-    diagnostico ||
-    "Não informado";
+    diagnostico;
 
 
   document
@@ -1487,7 +1564,6 @@ setInterval(
 );
 
 </script>
-
 
 </body>
 
