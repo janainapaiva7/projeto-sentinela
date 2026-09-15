@@ -76,6 +76,8 @@ button:hover {
 }
 
 
+
+
 /* =========================================================
    TELA DE LOGIN
    ========================================================= */
@@ -403,3 +405,486 @@ button:hover {
     }
 
 }
+
+
+
+/* =========================================================
+   PAINEL MÉDICO
+   ========================================================= */
+
+
+/* CABEÇALHO */
+
+.painel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.painel-titulo {
+    margin: 0;
+}
+
+
+/* BOTÃO ABRIR TV */
+
+.btn-abrir-tv {
+    width: auto;
+
+    background: #17a2b8;
+
+    color: white;
+
+    border: none;
+
+    padding: 8px 16px;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    margin-top: 0;
+}
+
+.btn-abrir-tv:hover {
+    background: #117a8b;
+}
+
+
+/* CONSULTÓRIO */
+
+.consultorio-input {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 16px;
+
+    background: #f0f4ff;
+
+    padding: 10px 14px;
+
+    border-radius: 6px;
+
+    border: 1px solid #d0d8f0;
+}
+
+.consultorio-input label {
+    font-weight: bold;
+}
+
+.consultorio-input input {
+    width: 60px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    padding: 4px 8px;
+
+    margin-top: 0;
+
+    border: 1px solid #ccc;
+
+    border-radius: 4px;
+}
+
+.consultorio-info {
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+/* AÇÕES DO PACIENTE */
+
+.acoes-paciente {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+
+/* BOTÃO DA TV */
+
+.btn-tv {
+    width: auto;
+
+    background: #28a745;
+
+    color: white;
+
+    border: none;
+
+    padding: 8px 14px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    margin-top: 8px;
+}
+
+.btn-tv:hover {
+    background: #1e7e34;
+}
+
+
+/* BOTÃO DAR ALTA */
+
+.btn-alta {
+    width: auto;
+
+    background: #dc3545;
+
+    color: white;
+
+    border: none;
+
+    padding: 8px 14px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    margin-top: 8px;
+}
+
+.btn-alta:hover {
+    background: #bb2d3b;
+}
+
+
+/* FILA VAZIA */
+
+.fila-vazia {
+    color: #888;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MODAL DE ALTA
+   ========================================================= */
+
+.modal-alta {
+    display: none;
+
+    position: fixed;
+
+    z-index: 99999;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+
+.caixa-alta {
+    background: white;
+
+    width: 100%;
+
+    max-width: 600px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.3);
+
+    box-sizing: border-box;
+}
+
+
+.caixa-alta h2 {
+    margin-top: 0;
+
+    margin-bottom: 25px;
+
+    text-align: center;
+
+    color: #333;
+}
+
+
+/* CAMPOS DA ALTA */
+
+.campo-alta {
+    margin-bottom: 16px;
+}
+
+
+.campo-alta label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 6px;
+
+    color: #333;
+}
+
+
+.campo-alta input,
+.campo-alta textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px;
+
+    margin-top: 0;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    font-family: Arial, sans-serif;
+}
+
+
+.campo-alta textarea {
+    resize: vertical;
+}
+
+
+.campo-alta input[readonly] {
+    background: #f2f2f2;
+}
+
+
+/* =========================================================
+   BOTÕES DO FORMULÁRIO DE ALTA
+   ========================================================= */
+
+.botoes-alta {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.botoes-alta button {
+    margin-top: 0;
+}
+
+
+.btn-gerar-alta {
+    flex: 1;
+
+    background: #198754;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+.btn-gerar-alta:hover {
+    background: #157347;
+}
+
+
+.btn-cancelar-alta {
+    flex: 1;
+
+    background: #6c757d;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+.btn-cancelar-alta:hover {
+    background: #5c636a;
+}
+
+
+/* =========================================================
+   DOCUMENTO DA ALTA
+   ========================================================= */
+
+#documentoAlta {
+    display: none;
+}
+
+
+.cabecalho-pdf {
+    text-align: center;
+
+    border-bottom: 2px solid #000;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 25px;
+}
+
+
+.cabecalho-pdf h1 {
+    margin-bottom: 5px;
+}
+
+
+.cabecalho-pdf p {
+    margin-top: 0;
+}
+
+
+#pdfMotivo,
+#pdfObservacoes {
+    white-space: pre-wrap;
+
+    line-height: 1.6;
+}
+
+
+.assinatura-pdf {
+    margin-top: 100px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   IMPRESSÃO
+   ========================================================= */
+
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+
+    #documentoAlta,
+    #documentoAlta * {
+        visibility: visible;
+    }
+
+
+    #documentoAlta {
+        display: block;
+
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 40px;
+
+        box-sizing: border-box;
+
+        background: white;
+
+        color: black;
+
+        font-family: Arial, sans-serif;
+    }
+
+
+    @page {
+        size: A4;
+
+        margin: 15mm;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .painel-header {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+
+    .btn-abrir-tv {
+        width: 100%;
+    }
+
+
+    .consultorio-input {
+        flex-wrap: wrap;
+    }
+
+
+    .botoes-alta {
+        flex-direction: column;
+    }
+
+
+    .caixa-alta {
+        padding: 18px;
+    }
+
+}
+
