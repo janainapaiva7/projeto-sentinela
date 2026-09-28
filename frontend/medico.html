@@ -1,10 +1,6 @@
+ <meta charset="UTF-8">
 
-<html lang="pt-BR">
-
-<head>
-
-  <meta charset="UTF-8">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -14,20 +10,418 @@
 
   <link rel="stylesheet" href="css/style.css">
 
+  <style>
+
+    /* =====================================================
+       BOTÃO DA TV
+       ===================================================== */
+
+    .btn-tv {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .btn-tv:hover {
+      background: #1e7e34;
+    }
+
+
+    .btn-abrir-tv {
+      background: #17a2b8;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-abrir-tv:hover {
+      background: #117a8b;
+    }
+
+
+    /* =====================================================
+       CONSULTÓRIO
+       ===================================================== */
+
+    .consultorio-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      background: #f0f4ff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #d0d8f0;
+    }
+
+    .consultorio-input label {
+      font-weight: bold;
+    }
+
+    .consultorio-input input {
+      width: 60px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+
+    /* =====================================================
+       BOTÃO DAR ALTA
+       ===================================================== */
+
+    .btn-alta {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .btn-alta:hover {
+      background: #bb2d3b;
+    }
+
+
+    /* =====================================================
+       MODAL DE ALTA
+       ===================================================== */
+
+    .modal-alta {
+      display: none;
+
+      position: fixed;
+
+      z-index: 99999;
+
+      left: 0;
+      top: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: rgba(0, 0, 0, 0.65);
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      box-sizing: border-box;
+    }
+
+
+    .caixa-alta {
+      background: white;
+
+      width: 100%;
+      max-width: 600px;
+
+      max-height: 90vh;
+
+      overflow-y: auto;
+
+      padding: 25px;
+
+      border-radius: 12px;
+
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+      box-sizing: border-box;
+    }
+
+
+    .caixa-alta h2 {
+      margin-top: 0;
+
+      margin-bottom: 25px;
+
+      text-align: center;
+
+      color: #333;
+    }
+
+
+    .campo-alta {
+      margin-bottom: 16px;
+    }
+
+
+    .campo-alta label {
+      display: block;
+
+      font-weight: bold;
+
+      margin-bottom: 6px;
+
+      color: #333;
+    }
+
+
+    .campo-alta input,
+    .campo-alta textarea {
+
+      width: 100%;
+
+      box-sizing: border-box;
+
+      padding: 11px;
+
+      border: 1px solid #ccc;
+
+      border-radius: 6px;
+
+      font-size: 15px;
+
+      font-family: Arial, sans-serif;
+    }
+
+
+    .campo-alta textarea {
+      resize: vertical;
+    }
+
+
+    .campo-alta input[readonly] {
+      background: #f2f2f2;
+    }
+
+
+    /* =====================================================
+       BOTÕES DO FORMULÁRIO
+       ===================================================== */
+
+    .botoes-alta {
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+
+    .btn-gerar-alta {
+      flex: 1;
+
+      background: #198754;
+
+      color: white;
+
+      border: none;
+
+      padding: 12px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: bold;
+    }
+
+
+    .btn-gerar-alta:hover {
+      background: #157347;
+    }
+
+
+    .btn-cancelar-alta {
+      flex: 1;
+
+      background: #6c757d;
+
+      color: white;
+
+      border: none;
+
+      padding: 12px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: bold;
+    }
+
+
+    .btn-cancelar-alta:hover {
+      background: #5c636a;
+    }
+
+
+    /* =====================================================
+       DOCUMENTO DA ALTA
+       ===================================================== */
+
+    #documentoAlta {
+      display: none;
+    }
+
+
+    .cabecalho-pdf {
+      text-align: center;
+
+      border-bottom: 2px solid #000;
+
+      padding-bottom: 15px;
+
+      margin-bottom: 25px;
+    }
+
+
+    .cabecalho-pdf h1 {
+      margin-bottom: 5px;
+    }
+
+
+    .cabecalho-pdf p {
+      margin-top: 0;
+    }
+
+
+    #pdfMotivo,
+    #pdfObservacoes {
+      white-space: pre-wrap;
+
+      line-height: 1.6;
+    }
+
+
+    .assinatura-pdf {
+      margin-top: 100px;
+
+      text-align: center;
+    }
+
+
+    /* =====================================================
+       IMPRESSÃO
+       ===================================================== */
+
+    @media print {
+
+      body * {
+        visibility: hidden;
+      }
+
+
+      #documentoAlta,
+      #documentoAlta * {
+        visibility: visible;
+      }
+
+
+      #documentoAlta {
+
+        display: block;
+
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 40px;
+
+        box-sizing: border-box;
+
+        background: white;
+
+        color: black;
+
+        font-family: Arial, sans-serif;
+      }
+
+
+      @page {
+        size: A4;
+
+        margin: 15mm;
+      }
+
+    }
+
+
+    /* =====================================================
+       CELULAR
+       ===================================================== */
+
+    @media (max-width: 600px) {
+
+      .consultorio-input {
+        flex-wrap: wrap;
+      }
+
+      .botoes-alta {
+        flex-direction: column;
+      }
+
+      .caixa-alta {
+        padding: 18px;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
+  <!-- =====================================================
+       CABEÇALHO
+       ===================================================== -->
+
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    "
+  >
   <!-- CABEÇALHO -->
 
+```
+<h2 style="margin:0;">
+  🩺 Painel Médico
+</h2>
   <div class="painel-header">
 
     <h2 class="painel-titulo">
       🩺 Painel Médico
     </h2>
 
+<button
+  class="btn-abrir-tv"
+  onclick="window.open('tv.html','_blank')"
+>
+  📺 Abrir Tela da TV
+</button>
+```
     <button
       class="btn-abrir-tv"
       onclick="window.open('tv.html','_blank')"
@@ -37,11 +431,25 @@
 
   </div>
 
+  <!-- =====================================================
+       CONSULTÓRIO
+       ===================================================== -->
 
+  <div class="consultorio-input">
+
+```
+<label>
+  Meu Consultório:
+</label>
   <!-- CONSULTÓRIO -->
 
   <div class="consultorio-input">
 
+<input
+  type="text"
+  id="consultorio-num"
+  value="01"
+>
     <label>
       Meu Consultório:
     </label>
@@ -52,12 +460,24 @@
       value="01"
     >
 
+<span
+  style="
+    color:#666;
+    font-size:13px;
+  "
+>
+  Este número será exibido na TV ao chamar o paciente.
+</span>
+```
     <span class="consultorio-info">
       Este número será exibido na TV ao chamar o paciente.
     </span>
 
   </div>
 
+  <!-- =====================================================
+       TRIAGENS
+       ===================================================== -->
 
   <!-- TRIAGENS -->
 
@@ -65,6 +485,9 @@
 
   <hr>
 
+  <!-- =====================================================
+       CONSULTA
+       ===================================================== -->
 
   <!-- CONSULTA -->
 
@@ -72,12 +495,23 @@
     Consulta
   </h3>
 
+<input
+id="paciente"
+placeholder="Paciente"
+readonly
+
+>
+
+<input
+id="diagnostico"
+placeholder="Diagnóstico"
   <input
     id="paciente"
     placeholder="Paciente"
     readonly
   >
 
+>
   <input
     id="diagnostico"
     placeholder="Diagnóstico"
@@ -85,93 +519,143 @@
 
   <select id="medicacao">
 
+```
+<option value="">
+  Selecione a medicação
+</option>
+```
     <option value="">
       Selecione a medicação
     </option>
 
   </select>
 
-  <textarea
-    id="obs"
-    placeholder="Observações"
-  ></textarea>
-
-  <button onclick="salvar()">
-    Salvar
-  </button>
+@@ -503,9 +103,8 @@ <h3>
 
 </div>
 
+<!-- =====================================================
+     MODAL DE ALTA
+     ===================================================== -->
 
 <!-- MODAL DE ALTA -->
 
 <div
   id="modalAlta"
-  class="modal-alta"
->
+@@ -514,1054 +113,860 @@ <h3>
 
   <div class="caixa-alta">
 
+```
+<h2>
+  🏥 Dar Alta ao Paciente
+</h2>
     <h2>
       🏥 Dar Alta ao Paciente
     </h2>
 
 
+<!-- PACIENTE -->
     <!-- PACIENTE -->
 
+<div class="campo-alta">
     <div class="campo-alta">
 
+  <label>
+    Paciente
+  </label>
       <label>
         Paciente
       </label>
 
+  <input
+    type="text"
+    id="altaPaciente"
+    readonly
+  >
       <input
         type="text"
         id="altaPaciente"
         readonly
       >
 
+</div>
     </div>
 
 
+<!-- DIAGNÓSTICO -->
     <!-- DIAGNÓSTICO -->
 
+<div class="campo-alta">
     <div class="campo-alta">
 
+  <label>
+    Diagnóstico
+  </label>
       <label>
         Diagnóstico
       </label>
 
+  <input
+    type="text"
+    id="altaDiagnostico"
+    readonly
+  >
       <input
         type="text"
         id="altaDiagnostico"
         readonly
       >
 
+</div>
     </div>
 
 
+<!-- MOTIVO DA ALTA -->
     <!-- MOTIVO DA ALTA -->
 
+<div class="campo-alta">
     <div class="campo-alta">
 
+  <label>
+    Motivo da Alta *
+  </label>
       <label>
         Motivo da Alta *
       </label>
 
+  <textarea
+    id="motivoAlta"
+    rows="5"
+    placeholder="Informe o motivo da alta..."
+  ></textarea>
       <textarea
         id="motivoAlta"
         rows="5"
         placeholder="Informe o motivo da alta..."
       ></textarea>
 
+</div>
     </div>
 
 
+<!-- OBSERVAÇÕES -->
     <!-- OBSERVAÇÕES -->
 
+<div class="campo-alta">
     <div class="campo-alta">
 
+  <label>
+    Observações
+  </label>
+
+  <textarea
+    id="observacoesAlta"
+    rows="4"
+    placeholder="Digite observações adicionais..."
+  ></textarea>
+
+</div>
       <label>
         Observações
       </label>
@@ -182,13 +666,23 @@
         placeholder="Digite observações adicionais..."
       ></textarea>
 
+<!-- DATA -->
     </div>
 
+<div class="campo-alta">
 
+  <label>
+    Data da Alta *
+  </label>
     <!-- DATA -->
 
+  <input
+    type="date"
+    id="dataAlta"
+  >
     <div class="campo-alta">
 
+</div>
       <label>
         Data da Alta *
       </label>
@@ -198,13 +692,21 @@
         id="dataAlta"
       >
 
+<!-- BOTÕES -->
     </div>
 
+<div class="botoes-alta">
 
     <!-- BOTÕES -->
 
+  <button
+    type="button"
+    class="btn-gerar-alta"
+    onclick="gerarAltaPDF()"
+  >
     <div class="botoes-alta">
 
+    📄 Gerar PDF
       <button
         type="button"
         class="btn-gerar-alta"
@@ -213,6 +715,18 @@
         📄 Gerar PDF
       </button>
 
+  </button>
+
+
+  <button
+    type="button"
+    class="btn-cancelar-alta"
+    onclick="fecharFormularioAlta()"
+  >
+
+    Cancelar
+
+  </button>
       <button
         type="button"
         class="btn-cancelar-alta"
@@ -221,12 +735,18 @@
         Cancelar
       </button>
 
+
+</div>
+```
     </div>
 
   </div>
 
 </div>
 
+<!-- =====================================================
+     DOCUMENTO DA ALTA
+     ===================================================== -->
 
 <!-- DOCUMENTO DA ALTA -->
 
@@ -234,10 +754,18 @@
 
   <div class="cabecalho-pdf">
 
+```
+<h1>
+  DOCUMENTO DE ALTA
+</h1>
     <h1>
       DOCUMENTO DE ALTA
     </h1>
 
+<p>
+  Relatório de Alta do Paciente
+</p>
+```
     <p>
       Relatório de Alta do Paciente
     </p>
@@ -247,10 +775,16 @@
 
   <p>
 
+```
+<strong>
+  Paciente:
+</strong>
     <strong>
       Paciente:
     </strong>
 
+<span id="pdfPaciente"></span>
+```
     <span id="pdfPaciente"></span>
 
   </p>
@@ -258,10 +792,16 @@
 
   <p>
 
+```
+<strong>
+  Diagnóstico:
+</strong>
     <strong>
       Diagnóstico:
     </strong>
 
+<span id="pdfDiagnostico"></span>
+```
     <span id="pdfDiagnostico"></span>
 
   </p>
@@ -269,10 +809,16 @@
 
   <p>
 
+```
+<strong>
+  Data da Alta:
+</strong>
     <strong>
       Data da Alta:
     </strong>
 
+<span id="pdfData"></span>
+```
     <span id="pdfData"></span>
 
   </p>
@@ -297,10 +843,15 @@
 
   <div class="assinatura-pdf">
 
+```
+______________________________________
     ______________________________________
 
+<br><br>
     <br><br>
 
+Responsável pela alta
+```
     Responsável pela alta
 
   </div>
@@ -314,32 +865,51 @@
      VARIÁVEIS
      ===================================================== */
 
+/* =====================================================
+   VARIÁVEIS
+   ===================================================== */
   let triagensCarregadas = [];
 
+let triagensCarregadas = [];
   let diagnosticoPacienteAtual = "";
 
+/*
+ * Guarda o diagnóstico da consulta atual.
+ * O diagnóstico não depende mais apenas do campo HTML.
+ */
 
+let diagnosticoPacienteAtual = "";
   /* =====================================================
      CARREGAR PACIENTES
      ===================================================== */
 
   function carregar() {
 
+/* =====================================================
+   CARREGAR PACIENTES
+   ===================================================== */
     fetch("/triagens")
 
+function carregar() {
       .then(r => r.json())
 
+  fetch("/triagens")
       .then(data => {
 
+    .then(r => r.json())
         triagensCarregadas = data;
 
+    .then(data => {
         const div =
           document.getElementById("triagens");
 
+      triagensCarregadas = data;
         div.innerHTML = "";
 
         if (data.length === 0) {
 
+      const div =
+        document.getElementById("triagens");
           div.innerHTML = `
             <p class="fila-vazia">
               Nenhum paciente na fila.
@@ -349,16 +919,28 @@
           return;
         }
 
+      div.innerHTML = "";
         data.forEach((t, index) => {
 
           div.innerHTML += `
 
+      if (data.length === 0) {
             <div class="card">
 
+        div.innerHTML = `
+          <p style="
+            color:#888;
+            text-align:center;
+          ">
+            Nenhum paciente na fila.
+          </p>
+        `;
               <h3>
                 ${t.nome}
               </h3>
 
+        return;
+      }
               <p>
                 <b>Sintoma:</b>
                 ${t.sintoma || "Não informado"}
@@ -369,22 +951,28 @@
                 ${t.temperatura || "Não informada"}°C
               </p>
 
+      data.forEach((t, index) => {
               <p>
                 <span class="${t.risco}">
                   ${t.risco}
                 </span>
               </p>
 
+        div.innerHTML += `
               <p>
                 <b>Alergia:</b>
                 ${t.alergia || "Nenhuma"}
               </p>
 
+          <div class="card">
               <p>
                 <b>Observação:</b>
                 ${t.observacao || "Nenhuma"}
               </p>
 
+            <h3>
+              ${t.nome}
+            </h3>
               <div class="acoes-paciente">
 
                 <button
@@ -393,6 +981,10 @@
                   Atender
                 </button>
 
+            <p>
+              <b>Sintoma:</b>
+              ${t.sintoma || "Não informado"}
+            </p>
                 <button
                   class="btn-tv"
                   onclick="chamarNaTV('${t.nome.replace(/'/g, "\\'")}')"
@@ -407,18 +999,35 @@
                   🏥 Dar Alta
                 </button>
 
+            <p>
+              <b>Temperatura:</b>
+              ${t.temperatura || "Não informada"}°C
+            </p>
               </div>
 
             </div>
 
+            <p>
+              <span class="${t.risco}">
+                ${t.risco}
+              </span>
+            </p>
           `;
 
         });
 
+            <p>
+              <b>Alergia:</b>
+              ${t.alergia || "Nenhuma"}
+            </p>
       })
 
       .catch(error => {
 
+            <p>
+              <b>Observação:</b>
+              ${t.observacao || "Nenhuma"}
+            </p>
         console.error(
           "Erro ao carregar triagens:",
           error
@@ -426,13 +1035,26 @@
 
       });
 
+            <div
+              style="
+                display:flex;
+                gap:8px;
+                flex-wrap:wrap;
+              "
+            >
   }
 
 
+              <!-- ATENDER -->
   /* =====================================================
      CHAMAR NA TV
      ===================================================== */
 
+              <button
+                onclick="selecionar(${index})"
+              >
+                Atender
+              </button>
   function chamarNaTV(nome) {
 
     const consultorio =
@@ -440,28 +1062,46 @@
         .getElementById("consultorio-num")
         .value || "01";
 
+              <!-- TV -->
     fetch("/tv/chamar", {
 
+              <button
+                class="btn-tv"
+                onclick="chamarNaTV('${t.nome.replace(/'/g, "\\'")}')"
+              >
+                📺 Chamar na TV
+              </button>
       method: "POST",
 
       headers: {
         "Content-Type": "application/json"
       },
 
+              <!-- ALTA -->
       body: JSON.stringify({
 
+              <button
+                class="btn-alta"
+                onclick="abrirFormularioAlta(${index})"
+              >
+                🏥 Dar Alta
+              </button>
         localTipo: "CONSULTÓRIO",
 
         localNumero: consultorio,
 
+            </div>
         paciente: nome
 
       })
 
+          </div>
     })
 
+        `;
     .then(r => r.json())
 
+      });
     .then(() => {
 
       alert(
@@ -476,6 +1116,9 @@
 
     .catch(error => {
 
+      console.error(
+        "Erro ao carregar triagens:",
+        error
       console.error(error);
 
       alert(
@@ -484,6 +1127,7 @@
 
     });
 
+}
   }
 
 
@@ -491,59 +1135,97 @@
      SELECIONAR PACIENTE
      ===================================================== */
 
+/* =====================================================
+   CHAMAR NA TV
+   ===================================================== */
   function selecionar(index) {
 
+function chamarNaTV(nome) {
     const t =
       triagensCarregadas[index];
 
+  const consultorio =
+    document
+      .getElementById("consultorio-num")
+      .value || "01";
     if (!t) {
 
       alert(
         "Paciente não encontrado."
       );
 
+  fetch("/tv/chamar", {
       return;
     }
 
+    method: "POST",
     document.getElementById("paciente").value =
       t.nome;
 
+    headers: {
+      "Content-Type": "application/json"
+    },
     document.getElementById("diagnostico").value =
       t.diagnostico || "";
 
+    body: JSON.stringify({
     diagnosticoPacienteAtual =
       t.diagnostico || "";
 
+      localTipo: "CONSULTÓRIO",
     document.getElementById("obs").value =
       t.observacao || "";
 
+      localNumero: consultorio,
     if (
       t.alergia &&
       t.alergia !== "Nenhuma"
     ) {
 
+      paciente: nome
       alert(
         "⚠️ Paciente possui alergia: " +
         t.alergia
       );
 
+    })
     }
 
+  })
   }
 
+  .then(r => r.json())
 
+  .then(() => {
   /* =====================================================
      CARREGAR MEDICAÇÕES
      ===================================================== */
 
+    alert(
+      "✅ " +
+      nome +
+      " foi chamado na TV para o Consultório " +
+      consultorio +
+      "!"
+    );
   function carregarMedicacoes() {
 
+  })
     fetch("/lista-medicacoes")
 
+  .catch(error => {
       .then(r => r.json())
 
+    console.error(error);
       .then(data => {
 
+    alert(
+      "❌ Erro ao chamar paciente na TV."
+    );
+
+  });
+
+}
         const select =
           document.getElementById("medicacao");
 
@@ -555,19 +1237,31 @@
 
         data.forEach(med => {
 
+/* =====================================================
+   SELECIONAR PACIENTE
+   ===================================================== */
           const option =
             document.createElement("option");
 
+function selecionar(index) {
           option.value = med;
 
+  const t =
+    triagensCarregadas[index];
           option.textContent = med;
 
           select.appendChild(option);
 
+  if (!t) {
         });
 
+    alert(
+      "Paciente não encontrado."
+    );
       })
 
+    return;
+  }
       .catch(error => {
 
         console.error(
@@ -575,22 +1269,35 @@
           error
         );
 
+  document.getElementById("paciente").value =
+    t.nome;
       });
 
   }
 
+  /*
+   * Se o paciente já possuir diagnóstico,
+   * carregá-lo na consulta.
+   */
 
+  document.getElementById("diagnostico").value =
+    t.diagnostico || "";
   /* =====================================================
      SALVAR CONSULTA
      ===================================================== */
 
   function salvar() {
 
+  /*
+   * Guardar o diagnóstico atual.
+   */
     const paciente =
       document
         .getElementById("paciente")
         .value;
 
+  diagnosticoPacienteAtual =
+    t.diagnostico || "";
     const diagnostico =
       document
         .getElementById("diagnostico")
@@ -602,6 +1309,8 @@
         .getElementById("medicacao")
         .value;
 
+  document.getElementById("obs").value =
+    t.observacao || "";
     const obs =
       document
         .getElementById("obs")
@@ -609,15 +1318,25 @@
 
     if (!paciente) {
 
+  if (
+    t.alergia &&
+    t.alergia !== "Nenhuma"
+  ) {
       alert(
         "Selecione um paciente clicando em Atender."
       );
 
+    alert(
+      "⚠️ Paciente possui alergia: " +
+      t.alergia
+    );
       return;
     }
 
+  }
     if (!diagnostico) {
 
+}
       alert(
         "Informe o diagnóstico."
       );
@@ -629,26 +1348,40 @@
       return;
     }
 
+/* =====================================================
+   CARREGAR MEDICAÇÕES
+   ===================================================== */
     if (!medicacao) {
 
+function carregarMedicacoes() {
       alert(
         "Selecione uma medicação."
       );
 
+  fetch("/lista-medicacoes")
       return;
     }
 
+    .then(r => r.json())
     diagnosticoPacienteAtual =
       diagnostico;
 
+    .then(data => {
     fetch("/consulta", {
 
+      const select =
+        document.getElementById("medicacao");
       method: "POST",
 
       headers: {
         "Content-Type": "application/json"
       },
 
+      select.innerHTML = `
+        <option value="">
+          Selecione a medicação
+        </option>
+      `;
       body: JSON.stringify({
 
         paciente,
@@ -656,14 +1389,19 @@
         medicacao,
         obs
 
+      data.forEach(med => {
       })
 
+        const option =
+          document.createElement("option");
     })
 
     .then(r => r.json())
 
+        option.value = med;
     .then(() => {
 
+        option.textContent = med;
       alert(
         "Consulta salva"
       );
@@ -671,9 +1409,11 @@
       document.getElementById("diagnostico").value =
         "";
 
+        select.appendChild(option);
       document.getElementById("medicacao").value =
         "";
 
+      });
       document.getElementById("obs").value =
         "";
 
@@ -681,6 +1421,9 @@
 
     .catch(error => {
 
+      console.error(
+        "Erro ao carregar medicações:",
+        error
       console.error(error);
 
       alert(
@@ -689,42 +1432,131 @@
 
     });
 
+}
+
+
+
+/* =====================================================
+   SALVAR CONSULTA
+   ===================================================== */
+
+function salvar() {
+
+  const paciente =
+    document
+      .getElementById("paciente")
+      .value;
+
+
+  const diagnostico =
+    document
+      .getElementById("diagnostico")
+      .value
+      .trim();
+
+
+  const medicacao =
+    document
+      .getElementById("medicacao")
+      .value;
+
+
+  const obs =
+    document
+      .getElementById("obs")
+      .value;
+
+
+  if (!paciente) {
+
+    alert(
+      "Selecione um paciente clicando em Atender."
+    );
+
+    return;
   }
 
 
+  if (!diagnostico) {
   /* =====================================================
      ABRIR FORMULÁRIO DE ALTA
      ===================================================== */
 
+    alert(
+      "Informe o diagnóstico."
+    );
   function abrirFormularioAlta(index) {
 
+    document
+      .getElementById("diagnostico")
+      .focus();
     const paciente =
       triagensCarregadas[index];
 
+    return;
+  }
+
+
+  if (!medicacao) {
+
+    alert(
+      "Selecione uma medicação."
+    );
+
+    return;
+  }
     if (!paciente) {
 
       alert(
         "Paciente não encontrado."
       );
 
+  /*
+   * GUARDAR O DIAGNÓSTICO ANTES DE LIMPAR
+   * O CAMPO DO FORMULÁRIO.
+   */
+
+  diagnosticoPacienteAtual =
+    diagnostico;
+
+
+  fetch("/consulta", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
       return;
     }
 
+    body: JSON.stringify({
     document.getElementById("altaPaciente").value =
       paciente.nome || "";
 
+      paciente,
+      diagnostico,
+      medicacao,
+      obs
     let diagnostico =
       paciente.diagnostico || "";
 
+    })
     if (!diagnostico) {
 
+  })
       diagnostico =
         diagnosticoPacienteAtual;
 
+  .then(r => r.json())
     }
 
+  .then(() => {
     if (!diagnostico) {
 
+    alert(
+      "Consulta salva"
+    );
       diagnostico =
         document
           .getElementById("diagnostico")
@@ -733,95 +1565,226 @@
 
     }
 
+    /*
+     * O campo é limpo visualmente,
+     * mas diagnosticoPacienteAtual continua
+     * guardando o diagnóstico.
+     */
     document.getElementById("altaDiagnostico").value =
       diagnostico;
 
+    document.getElementById("diagnostico").value =
     document.getElementById("motivoAlta").value =
       "";
 
+
+    document.getElementById("medicacao").value =
     document.getElementById("observacoesAlta").value =
       "";
 
     const hoje =
       new Date();
 
+    document.getElementById("obs").value =
+      "";
     const ano =
       hoje.getFullYear();
 
+  })
     const mes =
       String(
         hoje.getMonth() + 1
       ).padStart(2, "0");
 
+  .catch(error => {
     const dia =
       String(
         hoje.getDate()
       ).padStart(2, "0");
 
+    console.error(error);
     document.getElementById("dataAlta").value =
       `${ano}-${mes}-${dia}`;
 
+    alert(
+      "❌ Erro ao salvar consulta."
+    );
+
+  });
+
+}
+
+
+
+/* =====================================================
+   ABRIR FORMULÁRIO DE ALTA
+   ===================================================== */
+
+function abrirFormularioAlta(index) {
     document.getElementById("modalAlta").style.display =
       "flex";
 
+  const paciente =
+    triagensCarregadas[index];
     setTimeout(() => {
 
       document
         .getElementById("motivoAlta")
         .focus();
 
+  if (!paciente) {
+
+    alert(
+      "Paciente não encontrado."
+    );
     }, 100);
 
+    return;
   }
 
 
+  /* ===================================================
+     PACIENTE
+     =================================================== */
+
+  document.getElementById("altaPaciente").value =
+    paciente.nome || "";
+
+
+  /* ===================================================
+     DIAGNÓSTICO
+     =================================================== */
+
+  /*
+   * Tenta encontrar o diagnóstico nesta ordem:
+   *
+   * 1. Diagnóstico retornado pela API.
+   * 2. Diagnóstico guardado durante a consulta.
+   * 3. Diagnóstico ainda presente no campo.
+   */
   /* =====================================================
      FECHAR FORMULÁRIO DE ALTA
      ===================================================== */
 
+  let diagnostico =
+    paciente.diagnostico || "";
   function fecharFormularioAlta() {
 
+
+  if (!diagnostico) {
+
+    diagnostico =
+      diagnosticoPacienteAtual;
     document.getElementById("modalAlta").style.display =
       "none";
 
   }
 
 
+  if (!diagnostico) {
   /* =====================================================
      GERAR PDF
      ===================================================== */
 
+    diagnostico =
   function gerarAltaPDF() {
 
     const paciente =
       document
+        .getElementById("diagnostico")
         .getElementById("altaPaciente")
         .value
         .trim();
 
+  }
+
+
+  document.getElementById("altaDiagnostico").value =
+    diagnostico;
+
+
+  /* ===================================================
+     LIMPAR MOTIVO
+     =================================================== */
+
+  document.getElementById("motivoAlta").value =
+    "";
+
+
+  /* ===================================================
+     LIMPAR OBSERVAÇÕES
+     =================================================== */
+
+  document.getElementById("observacoesAlta").value =
+    "";
+
+
+  /* ===================================================
+     DATA ATUAL
+     =================================================== */
+
+  const hoje =
+    new Date();
+
+
+  const ano =
+    hoje.getFullYear();
+
+
+  const mes =
+    String(
+      hoje.getMonth() + 1
+    ).padStart(2, "0");
+
+
+  const dia =
+    String(
+      hoje.getDate()
+    ).padStart(2, "0");
+
+
+  document.getElementById("dataAlta").value =
+    `${ano}-${mes}-${dia}`;
+
+
+  /* ===================================================
+     ABRIR MODAL
+     =================================================== */
+
+  document.getElementById("modalAlta").style.display =
+    "flex";
+
+
+  /* Colocar cursor no motivo */
     const diagnostico =
       document
         .getElementById("altaDiagnostico")
         .value
         .trim();
 
+  setTimeout(() => {
     const motivo =
       document
         .getElementById("motivoAlta")
         .value
         .trim();
 
+    document
+      .getElementById("motivoAlta")
+      .focus();
     const observacoes =
       document
         .getElementById("observacoesAlta")
         .value
         .trim();
 
+  }, 100);
     const data =
       document
         .getElementById("dataAlta")
         .value;
 
+}
     if (!paciente) {
 
       alert(
@@ -831,15 +1794,22 @@
       return;
     }
 
+/* =====================================================
+   FECHAR FORMULÁRIO DE ALTA
+   ===================================================== */
     if (!diagnostico) {
 
+function fecharFormularioAlta() {
       alert(
         "⚠️ Diagnóstico não informado."
       );
 
+  document.getElementById("modalAlta").style.display =
+    "none";
       return;
     }
 
+}
     if (!motivo) {
 
       alert(
@@ -850,11 +1820,20 @@
         .getElementById("motivoAlta")
         .focus();
 
+/* =====================================================
+   GERAR PDF
+   ===================================================== */
       return;
     }
 
+function gerarAltaPDF() {
     if (!data) {
 
+  const paciente =
+    document
+      .getElementById("altaPaciente")
+      .value
+      .trim();
       alert(
         "⚠️ Informe a data da alta."
       );
@@ -862,22 +1841,72 @@
       return;
     }
 
+  const diagnostico =
     document
+      .getElementById("altaDiagnostico")
+      .value
+      .trim();
+
       .getElementById("pdfPaciente")
       .textContent =
       paciente;
 
+  const motivo =
     document
+      .getElementById("motivoAlta")
+      .value
+      .trim();
+
       .getElementById("pdfDiagnostico")
       .textContent =
       diagnostico;
 
+  const observacoes =
     document
+      .getElementById("observacoesAlta")
+      .value
+      .trim();
       .getElementById("pdfMotivo")
       .textContent =
       motivo;
 
+
+  const data =
     document
+      .getElementById("dataAlta")
+      .value;
+
+
+
+  /* ===================================================
+     VALIDAÇÕES
+     =================================================== */
+
+  if (!paciente) {
+
+    alert(
+      "⚠️ Paciente não informado."
+    );
+
+    return;
+  }
+
+
+  if (!diagnostico) {
+
+    alert(
+      "⚠️ Diagnóstico não informado."
+    );
+
+    return;
+  }
+
+
+  if (!motivo) {
+
+    alert(
+      "⚠️ Informe o motivo da alta."
+    );
       .getElementById("pdfObservacoes")
       .textContent =
       observacoes ||
@@ -887,26 +1916,49 @@
       data.split("-");
 
     document
+      .getElementById("motivoAlta")
+      .focus();
       .getElementById("pdfData")
       .textContent =
       `${partes[2]}/${partes[1]}/${partes[0]}`;
 
     fecharFormularioAlta();
 
-    setTimeout(() => {
-
-      window.print();
-
-    }, 300);
-
+    return;
   }
 
+    setTimeout(() => {
+
+  if (!data) {
+      window.print();
+
+    alert(
+      "⚠️ Informe a data da alta."
+    );
+    }, 300);
+
+    return;
+  }
+
+
+
+  /* ===================================================
+     PREENCHER DOCUMENTO
+     =================================================== */
+
+  document
+    .getElementById("pdfPaciente")
+    .textContent =
+    paciente;
 
   /* =====================================================
      FECHAR MODAL CLICANDO FORA
      ===================================================== */
 
   document
+    .getElementById("pdfDiagnostico")
+    .textContent =
+    diagnostico;
     .getElementById("modalAlta")
     .addEventListener(
       "click",
@@ -914,879 +1966,47 @@
 
         if (event.target === this) {
 
-          fecharFormularioAlta();
-
-        }
-
-      }
-    );
-
-
-  /* =====================================================
-     FECHAR COM ESC
-     ===================================================== */
-
-  document.addEventListener(
-    "keydown",
-    function(event) {
-
-      if (event.key === "Escape") {
-
-        const modal =
-          document.getElementById("modalAlta");
-
-        if (
-          modal.style.display === "flex"
-        ) {
-
-          fecharFormularioAlta();
-
-        }
-
-      }
-
-    }
-  );
-
-
-  /* =====================================================
-     INICIAR SISTEMA
-     ===================================================== */
-
-  carregar();
-
-  carregarMedicacoes();
-
-
-  /* =====================================================
-     ATUALIZAR FILA A CADA 10 SEGUNDOS
-     ===================================================== */
-
-  setInterval(
-    carregar,
-    10000
-  );
-
-</script>
-
-</body>
-
-</html>
-
-Dito pelo ChatGPT:
-Claro. Posso deixar o documento de alta com aparência bem mais profissional e completo, incluindo data e hora, identificação do médico, CRM, dados do paciente, diagnóstico, motivo da alta, orientações, observações e campos de assinatura.
-
-Como você não passou ainda o nome/CRM do médico nem os dados da instituição, vou estruturar o código para você preencher essas informações facilmente. Também vou manter o window.print() para que o navegador gere o PDF pela opção Imprimir → Salvar como PDF.
-
-1. Substitua seu bloco <!-- DOCUMENTO DA ALTA --> por este
-<!-- =====================================================
-     DOCUMENTO DA ALTA
-     ===================================================== -->
-
-<div id="documentoAlta">
-
-  <div class="cabecalho-pdf">
-
-    <div class="logo-hospital">
-      🏥
-    </div>
-
-    <div class="info-instituicao">
-
-      <h1>
-        NOME DA CLÍNICA / HOSPITAL
-      </h1>
-
-      <p>
-        Serviço de Atendimento Médico
-      </p>
-
-      <p>
-        CNPJ: 00.000.000/0000-00
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="titulo-documento">
-
-    <h2>
-      DOCUMENTO DE ALTA MÉDICA
-    </h2>
-
-    <p>
-      Relatório de alta do paciente
-    </p>
-
-  </div>
-
-
-  <!-- IDENTIFICAÇÃO DO ATENDIMENTO -->
-
-  <div class="secao-pdf">
-
-    <h3>
-      1. Identificação do Atendimento
-    </h3>
-
-    <div class="grid-pdf">
-
-      <div class="campo-pdf campo-grande">
-
-        <span class="label-pdf">
-          Paciente
-        </span>
-
-        <span
-          class="valor-pdf"
-          id="pdfPaciente"
-        ></span>
-
-      </div>
-
-
-      <div class="campo-pdf">
-
-        <span class="label-pdf">
-          Data da Alta
-        </span>
-
-        <span
-          class="valor-pdf"
-          id="pdfData"
-        ></span>
-
-      </div>
-
-
-      <div class="campo-pdf">
-
-        <span class="label-pdf">
-          Horário da Alta
-        </span>
-
-        <span
-          class="valor-pdf"
-          id="pdfHora"
-        ></span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- DADOS MÉDICOS -->
-
-  <div class="secao-pdf">
-
-    <h3>
-      2. Informações Médicas
-    </h3>
-
-
-    <div class="campo-pdf campo-full">
-
-      <span class="label-pdf">
-        Diagnóstico
-      </span>
-
-      <div
-        class="texto-pdf"
-        id="pdfDiagnostico"
-      ></div>
-
-    </div>
-
-
-    <div class="campo-pdf campo-full">
-
-      <span class="label-pdf">
-        Motivo da Alta
-      </span>
-
-      <div
-        class="texto-pdf"
-        id="pdfMotivo"
-      ></div>
-
-    </div>
-
-
-    <div class="campo-pdf campo-full">
-
-      <span class="label-pdf">
-        Observações
-      </span>
-
-      <div
-        class="texto-pdf"
-        id="pdfObservacoes"
-      ></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ORIENTAÇÕES -->
-
-  <div class="secao-pdf">
-
-    <h3>
-      3. Orientações ao Paciente
-    </h3>
-
-    <div
-      class="texto-pdf orientacoes-pdf"
-      id="pdfOrientacoes"
-    >
-      Paciente orientado quanto aos cuidados necessários após a alta,
-      observação dos sintomas e necessidade de retorno ao serviço de saúde
-      em caso de piora ou surgimento de novos sintomas.
-    </div>
-
-  </div>
-
-
-  <!-- PROFISSIONAL RESPONSÁVEL -->
-
-  <div class="secao-pdf">
-
-    <h3>
-      4. Profissional Responsável
-    </h3>
-
-    <div class="grid-pdf">
-
-      <div class="campo-pdf campo-grande">
-
-        <span class="label-pdf">
-          Médico responsável
-        </span>
-
-        <span
-          class="valor-pdf"
-          id="pdfMedico"
-        >
-          NOME DO MÉDICO
-        </span>
-
-      </div>
-
-
-      <div class="campo-pdf">
-
-        <span class="label-pdf">
-          CRM
-        </span>
-
-        <span
-          class="valor-pdf"
-          id="pdfCRM"
-        >
-          CRM 000000
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ASSINATURA -->
-
-  <div class="assinatura-pdf">
-
-    <div class="linha-assinatura">
-      __________________________________________
-    </div>
-
-    <strong id="pdfAssinatura">
-      NOME DO MÉDICO
-    </strong>
-
-    <br>
-
-    <span id="pdfAssinaturaCRM">
-      CRM 000000
-    </span>
-
-    <p>
-      Médico responsável pela alta
-    </p>
-
-  </div>
-
-
-  <!-- RODAPÉ -->
-
-  <div class="rodape-pdf">
-
-    <p>
-      Documento emitido eletronicamente pelo sistema de atendimento.
-    </p>
-
-    <p>
-      Este documento deve ser mantido pelo paciente para fins de acompanhamento.
-    </p>
-
-  </div>
-
-</div>
-
-2. Adicione este CSS ao seu css/style.css
-/* =====================================================
-   DOCUMENTO DE ALTA - PDF
-   ===================================================== */
-
-#documentoAlta {
-  display: none;
-}
-
-
-/* CABEÇALHO */
-
-.cabecalho-pdf {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 20px;
-
-  border-bottom: 3px solid #1f5f8b;
-
-  padding-bottom: 18px;
-
-  margin-bottom: 25px;
-
-}
-
-.logo-hospital {
-
-  width: 60px;
-
-  height: 60px;
-
-  border: 2px solid #1f5f8b;
-
-  border-radius: 10px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 32px;
-
-}
-
-.info-instituicao h1 {
-
-  margin: 0;
-
-  font-size: 20px;
-
-  color: #1f3c53;
-
-}
-
-.info-instituicao p {
-
-  margin: 3px 0;
-
-  color: #555;
-
-  font-size: 12px;
-
-}
-
-
-/* TÍTULO */
-
-.titulo-documento {
-
-  text-align: center;
-
-  margin-bottom: 30px;
-
-}
-
-.titulo-documento h2 {
-
-  margin: 0;
-
-  font-size: 22px;
-
-  color: #1f3c53;
-
-}
-
-.titulo-documento p {
-
-  margin-top: 5px;
-
-  color: #666;
-
-}
-
-
-/* SEÇÕES */
-
-.secao-pdf {
-
-  margin-bottom: 25px;
-
-}
-
-.secao-pdf h3 {
-
-  background: #eef5f9;
-
-  color: #1f5f8b;
-
-  border-left: 5px solid #1f5f8b;
-
-  padding: 9px 12px;
-
-  font-size: 15px;
-
-  margin-bottom: 12px;
-
-}
-
-
-/* GRID */
-
-.grid-pdf {
-
-  display: grid;
-
-  grid-template-columns: 2fr 1fr 1fr;
-
-  gap: 12px;
-
-}
-
-.campo-grande {
-
-  grid-column: span 1;
-
-}
-
-.campo-full {
-
-  width: 100%;
-
-  margin-bottom: 14px;
-
-}
-
-
-/* CAMPOS */
-
-.campo-pdf {
-
-  border: 1px solid #d6dce0;
-
-  border-radius: 5px;
-
-  padding: 10px 12px;
-
-  min-height: 45px;
-
-  box-sizing: border-box;
-
-}
-
-.label-pdf {
-
-  display: block;
-
-  font-size: 10px;
-
-  font-weight: bold;
-
-  color: #68757d;
-
-  text-transform: uppercase;
-
-  margin-bottom: 5px;
-
-}
-
-.valor-pdf {
-
-  font-size: 13px;
-
-  color: #222;
-
-  font-weight: 500;
-
-}
-
-.texto-pdf {
-
-  font-size: 13px;
-
-  line-height: 1.6;
-
-  color: #222;
-
-  white-space: pre-wrap;
-
-  min-height: 25px;
-
-}
-
-
-/* ORIENTAÇÕES */
-
-.orientacoes-pdf {
-
-  border: 1px solid #d6dce0;
-
-  border-radius: 5px;
-
-  padding: 14px;
-
-  background: #fafafa;
-
-}
-
-
-/* ASSINATURA */
-
-.assinatura-pdf {
-
-  margin-top: 55px;
-
-  text-align: center;
-
-  font-size: 13px;
-
-  page-break-inside: avoid;
-
-}
-
-.linha-assinatura {
-
-  margin-bottom: 8px;
-
-}
-
-.assinatura-pdf p {
-
-  margin-top: 6px;
-
-  color: #666;
-
-  font-size: 11px;
-
-}
-
-
-/* RODAPÉ */
-
-.rodape-pdf {
-
-  margin-top: 45px;
-
-  padding-top: 12px;
-
-  border-top: 1px solid #ccc;
-
-  text-align: center;
-
-  color: #777;
-
-  font-size: 9px;
-
-  line-height: 1.5;
-
-}
-
-
-/* =====================================================
-   IMPRESSÃO
-   ===================================================== */
-
-@media print {
-
-  @page {
-
-    size: A4;
-
-    margin: 15mm;
-
-  }
-
-
-  body * {
-
-    visibility: hidden;
-
-  }
-
-
-  #documentoAlta,
-  #documentoAlta * {
-
-    visibility: visible;
-
-  }
-
-
-  #documentoAlta {
-
-    display: block;
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 100%;
-
-    color: #000;
-
-    background: #fff;
-
-  }
-
-
-  .secao-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-
-  .cabecalho-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-
-  .assinatura-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-}
-
-3. Altere a função gerarAltaPDF()
-A sua função atual já funciona, mas vamos fazer com que ela também preencha horário, médico e CRM.
-
-Substitua a função inteira por:
-
-function gerarAltaPDF() {
-
-  const paciente =
-    document
-      .getElementById("altaPaciente")
-      .value
-      .trim();
-
-  const diagnostico =
-    document
-      .getElementById("altaDiagnostico")
-      .value
-      .trim();
-
-  const motivo =
-    document
-      .getElementById("motivoAlta")
-      .value
-      .trim();
-
-  const observacoes =
-    document
-      .getElementById("observacoesAlta")
-      .value
-      .trim();
-
-  const data =
-    document
-      .getElementById("dataAlta")
-      .value;
-
-
-  /* ==========================================
-     VALIDAÇÕES
-     ========================================== */
-
-  if (!paciente) {
-
-    alert("⚠️ Paciente não informado.");
-
-    return;
-
-  }
-
-
-  if (!diagnostico) {
-
-    alert("⚠️ Diagnóstico não informado.");
-
-    return;
-
-  }
-
-
-  if (!motivo) {
-
-    alert("⚠️ Informe o motivo da alta.");
-
-    document
-      .getElementById("motivoAlta")
-      .focus();
-
-    return;
-
-  }
-
-
-  if (!data) {
-
-    alert("⚠️ Informe a data da alta.");
-
-    return;
-
-  }
-
-
-  /* ==========================================
-     PACIENTE
-     ========================================== */
-
-  document
-    .getElementById("pdfPaciente")
-    .textContent = paciente;
-
-
-  /* ==========================================
-     DIAGNÓSTICO
-     ========================================== */
-
-  document
-    .getElementById("pdfDiagnostico")
-    .textContent = diagnostico;
-
-
-  /* ==========================================
-     MOTIVO
-     ========================================== */
-
   document
     .getElementById("pdfMotivo")
-    .textContent = motivo;
+    .textContent =
+    motivo;
 
-
-  /* ==========================================
-     OBSERVAÇÕES
-     ========================================== */
 
   document
     .getElementById("pdfObservacoes")
     .textContent =
-      observacoes || "Nenhuma observação registrada.";
+    observacoes ||
+    "Nenhuma observação.";
 
 
-  /* ==========================================
-     DATA
-     ========================================== */
 
-  const partes = data.split("-");
+  /* ===================================================
+     FORMATAR DATA
+     =================================================== */
 
-  const dataFormatada =
-    `${partes[2]}/${partes[1]}/${partes[0]}`;
+  const partes =
+    data.split("-");
+
 
   document
     .getElementById("pdfData")
-    .textContent = dataFormatada;
-
-
-  /* ==========================================
-     HORÁRIO
-     ========================================== */
-
-  const agora = new Date();
-
-  const hora =
-    String(agora.getHours()).padStart(2, "0");
-
-  const minutos =
-    String(agora.getMinutes()).padStart(2, "0");
-
-  document
-    .getElementById("pdfHora")
     .textContent =
-      `${hora}:${minutos}`;
+    `${partes[2]}/${partes[1]}/${partes[0]}`;
+          fecharFormularioAlta();
 
 
-  /* ==========================================
-     DADOS DO MÉDICO
-     
-     ALTERE AQUI
-     ========================================== */
 
-  const medico =
-    "NOME DO MÉDICO";
-
-  const crm =
-    "CRM 000000";
-
-
-  document
-    .getElementById("pdfMedico")
-    .textContent = medico;
-
-  document
-    .getElementById("pdfCRM")
-    .textContent = crm;
-
-  document
-    .getElementById("pdfAssinatura")
-    .textContent = medico;
-
-  document
-    .getElementById("pdfAssinaturaCRM")
-    .textContent = crm;
-
-
-  /* ==========================================
-     ORIENTAÇÕES
-     ========================================== */
-
-  document
-    .getElementById("pdfOrientacoes")
-    .textContent =
-      "Paciente orientado quanto aos cuidados necessários após a alta, " +
-      "uso correto das medicações prescritas, observação dos sintomas " +
-      "e necessidade de procurar atendimento médico em caso de piora " +
-      "do quadro clínico ou surgimento de novos sintomas.";
-
-
-  /* ==========================================
+  /* ===================================================
      FECHAR MODAL
-     ========================================== */
+     =================================================== */
 
   fecharFormularioAlta();
 
 
-  /* ==========================================
-     GERAR PDF
-     ========================================== */
+
+  /* ===================================================
+     ABRIR IMPRESSÃO
+     =================================================== */
 
   setTimeout(() => {
 
@@ -1796,3715 +2016,104 @@ function gerarAltaPDF() {
 
 }
 
-4. Se quiser deixar o formulário de alta ainda melhor
-Eu também recomendo acrescentar orientações de alta ao formulário, em vez de colocar um texto fixo no PDF.
-
-Dentro do seu modalAlta, depois de "Observações", coloque:
-
-<!-- ORIENTAÇÕES DE ALTA -->
-
-<div class="campo-alta">
-
-  <label>
-    Orientações ao Paciente
-  </label>
-
-  <textarea
-    id="orientacoesAlta"
-    rows="5"
-    placeholder="Informe as orientações, cuidados, retorno, sinais de alerta, etc."
-  ></textarea>
-
-</div>
-
-E dentro da função gerarAltaPDF(), junto com as outras variáveis:
-
-const orientacoes =
-  document
-    .getElementById("orientacoesAlta")
-    .value
-    .trim();
-
-Depois, substitua o trecho das orientações por:
-
-document
-  .getElementById("pdfOrientacoes")
-  .textContent =
-    orientacoes ||
-    "Paciente orientado quanto aos cuidados necessários após a alta.";
-
-Assim o médico poderá escrever, por exemplo:
-
-cuidados após a alta;
-
-retorno;
-
-sinais de alerta;
-
-recomendações;
-
-encaminhamentos;
-
-cuidados com medicação.
-
-Um ponto importante: como isso é um documento médico, eu evitaria deixar CRM, assinatura ou identificação profissional "inventados" no código. O ideal é colocar os dados reais do profissional e da instituição, e manter os campos editáveis/configuráveis.
-
-Se você me passar o nome da clínica/hospital, nome do médico, CRM e CNPJ (se quiser colocar), eu posso montar o HTML completo já integrado ao seu código atual, incluindo um layout de PDF A4 mais profissional, cabeçalho, rodapé, número do atendimento e campos de assinatura.
 
 
-Dito por si:
-
-reescreva tudo pronto para eu copiar e colar
-
-Dito pelo ChatGPT:
-Claro. Abaixo está o HTML completo, já integrado, para você substituir o arquivo atual inteiro. Mantive suas funções de triagem, TV, consulta, medicações e alta, e deixei o documento de alta mais completo.
-
-Você só precisa alterar os dados marcados como ALTERE AQUI — principalmente nome da clínica, CNPJ, médico e CRM.
-
-<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8">
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
-<title>Painel Médico</title> <link rel="stylesheet" href="css/style.css"> <style>
 /* =====================================================
-   DOCUMENTO DE ALTA
+   FECHAR MODAL CLICANDO FORA
    ===================================================== */
-
-#documentoAlta {
-  display: none;
-}
-
-/* =====================================================
-   CABEÇALHO DO PDF
-   ===================================================== */
-
-.cabecalho-pdf {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 20px;
-
-  border-bottom: 3px solid #1f5f8b;
-
-  padding-bottom: 18px;
-
-  margin-bottom: 25px;
-
-}
-
-.logo-hospital {
-
-  width: 60px;
-
-  height: 60px;
-
-  border: 2px solid #1f5f8b;
-
-  border-radius: 10px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 32px;
-
-  flex-shrink: 0;
-
-}
-
-.info-instituicao h1 {
-
-  margin: 0;
-
-  font-size: 20px;
-
-  color: #1f3c53;
-
-}
-
-.info-instituicao p {
-
-  margin: 3px 0;
-
-  color: #555;
-
-  font-size: 12px;
-
-}
-
-/* =====================================================
-   TÍTULO
-   ===================================================== */
-
-.titulo-documento {
-
-  text-align: center;
-
-  margin-bottom: 30px;
-
-}
-
-.titulo-documento h2 {
-
-  margin: 0;
-
-  font-size: 22px;
-
-  color: #1f3c53;
-
-}
-
-.titulo-documento p {
-
-  margin-top: 5px;
-
-  color: #666;
-
-}
-
-/* =====================================================
-   SEÇÕES
-   ===================================================== */
-
-.secao-pdf {
-
-  margin-bottom: 25px;
-
-}
-
-.secao-pdf h3 {
-
-  background: #eef5f9;
-
-  color: #1f5f8b;
-
-  border-left: 5px solid #1f5f8b;
-
-  padding: 9px 12px;
-
-  font-size: 15px;
-
-  margin-bottom: 12px;
-
-}
-
-/* =====================================================
-   GRID
-   ===================================================== */
-
-.grid-pdf {
-
-  display: grid;
-
-  grid-template-columns: 2fr 1fr 1fr;
-
-  gap: 12px;
-
-}
-
-/* =====================================================
-   CAMPOS
-   ===================================================== */
-
-.campo-pdf {
-
-  border: 1px solid #d6dce0;
-
-  border-radius: 5px;
-
-  padding: 10px 12px;
-
-  min-height: 45px;
-
-  box-sizing: border-box;
-
-}
-
-.campo-full {
-
-  width: 100%;
-
-  margin-bottom: 14px;
-
-}
-
-.label-pdf {
-
-  display: block;
-
-  font-size: 10px;
-
-  font-weight: bold;
-
-  color: #68757d;
-
-  text-transform: uppercase;
-
-  margin-bottom: 5px;
-
-}
-
-.valor-pdf {
-
-  font-size: 13px;
-
-  color: #222;
-
-  font-weight: 500;
-
-}
-
-.texto-pdf {
-
-  font-size: 13px;
-
-  line-height: 1.6;
-
-  color: #222;
-
-  white-space: pre-wrap;
-
-  min-height: 25px;
-
-}
-
-/* =====================================================
-   ORIENTAÇÕES
-   ===================================================== */
-
-.orientacoes-pdf {
-
-  border: 1px solid #d6dce0;
-
-  border-radius: 5px;
-
-  padding: 14px;
-
-  background: #fafafa;
-
-}
-
-/* =====================================================
-   ASSINATURA
-   ===================================================== */
-
-.assinatura-pdf {
-
-  margin-top: 55px;
-
-  text-align: center;
-
-  font-size: 13px;
-
-  page-break-inside: avoid;
-
-}
-
-.linha-assinatura {
-
-  margin-bottom: 8px;
-
-}
-
-.assinatura-pdf p {
-
-  margin-top: 6px;
-
-  color: #666;
-
-  font-size: 11px;
-
-}
-
-/* =====================================================
-   RODAPÉ
-   ===================================================== */
-
-.rodape-pdf {
-
-  margin-top: 45px;
-
-  padding-top: 12px;
-
-  border-top: 1px solid #ccc;
-
-  text-align: center;
-
-  color: #777;
-
-  font-size: 9px;
-
-  line-height: 1.5;
-
-}
-
-/* =====================================================
-   IMPRESSÃO / PDF
-   ===================================================== */
-
-@media print {
-
-  @page {
-
-    size: A4;
-
-    margin: 15mm;
-
-  }
-
-  body * {
-
-    visibility: hidden;
-
-  }
-
-  #documentoAlta,
-  #documentoAlta * {
-
-    visibility: visible;
-
-  }
-
-  #documentoAlta {
-
-    display: block;
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 100%;
-
-    color: #000;
-
-    background: #fff;
-
-  }
-
-  .secao-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-  .cabecalho-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-  .assinatura-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-}
-
-</style> </head> <body> <div class="container"> <!-- ===================================================== CABEÇALHO ===================================================== --> <div class="painel-header">
-<h2 class="painel-titulo">
-  🩺 Painel Médico
-</h2>
-
-<button
-  class="btn-abrir-tv"
-  onclick="window.open('tv.html','_blank')"
->
-
-  📺 Abrir Tela da TV
-
-</button>
-
-</div> <!-- ===================================================== CONSULTÓRIO ===================================================== --> <div class="consultorio-input">
-<label>
-  Meu Consultório:
-</label>
-
-<input
-  type="text"
-  id="consultorio-num"
-  value="01"
->
-
-<span class="consultorio-info">
-
-  Este número será exibido na TV ao chamar o paciente.
-
-</span>
-
-</div> <!-- ===================================================== TRIAGENS ===================================================== --> <div id="triagens"></div> <hr> <!-- ===================================================== CONSULTA ===================================================== --> <h3> Consulta </h3>
-<input
-id="paciente"
-placeholder="Paciente"
-readonly
-
-<input
-id="diagnostico"
-placeholder="Diagnóstico"
-
-<select id="medicacao">
-<option value="">
-  Selecione a medicação
-</option>
-
-</select> <textarea id="obs" placeholder="Observações" ></textarea> <button onclick="salvar()"> Salvar </button> </div> <!-- ===================================================== MODAL DE ALTA ===================================================== --> <div id="modalAlta" class="modal-alta" > <div class="caixa-alta">
-<h2>
-  🏥 Dar Alta ao Paciente
-</h2>
-
-<!-- PACIENTE -->
-
-<div class="campo-alta">
-
-  <label>
-    Paciente
-  </label>
-
-  <input
-    type="text"
-    id="altaPaciente"
-    readonly
-  >
-
-</div>
-
-<!-- DIAGNÓSTICO -->
-
-<div class="campo-alta">
-
-  <label>
-    Diagnóstico
-  </label>
-
-  <input
-    type="text"
-    id="altaDiagnostico"
-    readonly
-  >
-
-</div>
-
-<!-- MOTIVO -->
-
-<div class="campo-alta">
-
-  <label>
-    Motivo da Alta *
-  </label>
-
-  <textarea
-    id="motivoAlta"
-    rows="5"
-    placeholder="Informe o motivo da alta..."
-  ></textarea>
-
-</div>
-
-<!-- OBSERVAÇÕES -->
-
-<div class="campo-alta">
-
-  <label>
-    Observações
-  </label>
-
-  <textarea
-    id="observacoesAlta"
-    rows="4"
-    placeholder="Digite observações adicionais..."
-  ></textarea>
-
-</div>
-
-<!-- ORIENTAÇÕES -->
-
-<div class="campo-alta">
-
-  <label>
-    Orientações ao Paciente
-  </label>
-
-  <textarea
-    id="orientacoesAlta"
-    rows="5"
-    placeholder="Informe orientações, cuidados, retorno, sinais de alerta, etc."
-  ></textarea>
-
-</div>
-
-<!-- DATA -->
-
-<div class="campo-alta">
-
-  <label>
-    Data da Alta *
-  </label>
-
-  <input
-    type="date"
-    id="dataAlta"
-  >
-
-</div>
-
-<!-- BOTÕES -->
-
-<div class="botoes-alta">
-
-  <button
-    type="button"
-    class="btn-gerar-alta"
-    onclick="gerarAltaPDF()"
-  >
-
-    📄 Gerar PDF
-
-  </button>
-
-  <button
-    type="button"
-    class="btn-cancelar-alta"
-    onclick="fecharFormularioAlta()"
-  >
-
-    Cancelar
-
-  </button>
-
-</div>
-
-</div> </div> <!-- ===================================================== DOCUMENTO DA ALTA ===================================================== --> <div id="documentoAlta"> <!-- CABEÇALHO --> <div class="cabecalho-pdf">
-<div class="logo-hospital">
-  🏥
-</div>
-
-<div class="info-instituicao">
-
-  <!-- ALTERE AQUI -->
-
-  <h1>
-    NOME DA CLÍNICA / HOSPITAL
-  </h1>
-
-  <p>
-    Serviço de Atendimento Médico
-  </p>
-
-  <p>
-    CNPJ: 00.000.000/0000-00
-  </p>
-
-</div>
-
-</div> <!-- TÍTULO --> <div class="titulo-documento">
-<h2>
-  DOCUMENTO DE ALTA MÉDICA
-</h2>
-
-<p>
-  Relatório de alta do paciente
-</p>
-
-</div> <!-- ===================================================== 1. IDENTIFICAÇÃO ===================================================== --> <div class="secao-pdf">
-<h3>
-  1. Identificação do Atendimento
-</h3>
-
-<div class="grid-pdf">
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Paciente
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfPaciente"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Data da Alta
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfData"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Horário
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfHora"
-    ></span>
-
-  </div>
-
-</div>
-
-</div> <!-- ===================================================== 2. INFORMAÇÕES MÉDICAS ===================================================== --> <div class="secao-pdf">
-<h3>
-  2. Informações Médicas
-</h3>
-
-<div class="campo-pdf campo-full">
-
-  <span class="label-pdf">
-    Diagnóstico
-  </span>
-
-  <div
-    class="texto-pdf"
-    id="pdfDiagnostico"
-  ></div>
-
-</div>
-
-<div class="campo-pdf campo-full">
-
-  <span class="label-pdf">
-    Motivo da Alta
-  </span>
-
-  <div
-    class="texto-pdf"
-    id="pdfMotivo"
-  ></div>
-
-</div>
-
-<div class="campo-pdf campo-full">
-
-  <span class="label-pdf">
-    Observações
-  </span>
-
-  <div
-    class="texto-pdf"
-    id="pdfObservacoes"
-  ></div>
-
-</div>
-
-</div> <!-- ===================================================== 3. ORIENTAÇÕES ===================================================== --> <div class="secao-pdf">
-<h3>
-  3. Orientações ao Paciente
-</h3>
-
-<div
-  class="texto-pdf orientacoes-pdf"
-  id="pdfOrientacoes"
-></div>
-
-</div> <!-- ===================================================== 4. PROFISSIONAL ===================================================== --> <div class="secao-pdf">
-<h3>
-  4. Profissional Responsável
-</h3>
-
-<div class="grid-pdf">
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Médico responsável
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfMedico"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      CRM
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfCRM"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Data de emissão
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfDataEmissao"
-    ></span>
-
-  </div>
-
-</div>
-
-</div> <!-- ===================================================== ASSINATURA ===================================================== --> <div class="assinatura-pdf">
-<div class="linha-assinatura">
-
-  __________________________________________
-
-</div>
-
-<strong id="pdfAssinatura">
-</strong>
-
-<br>
-
-<span id="pdfAssinaturaCRM">
-</span>
-
-<p>
-  Médico responsável pela alta
-</p>
-
-</div> <!-- ===================================================== RODAPÉ ===================================================== --> <div class="rodape-pdf">
-<p>
-  Documento emitido eletronicamente pelo sistema de atendimento.
-</p>
-
-<p>
-  Este documento deve ser mantido pelo paciente para fins de acompanhamento.
-</p>
-
-</div> </div> <script>
-/* =====================================================
-VARIÁVEIS
-===================================================== */
-
-let triagensCarregadas = [];
-
-let diagnosticoPacienteAtual = "";
-
-/* =====================================================
-CARREGAR PACIENTES
-===================================================== */
-
-function carregar() {
-
-fetch("/triagens")
-
-  .then(r => r.json())
-
-  .then(data => {
-
-    triagensCarregadas = data;
-
-    const div =
-      document.getElementById("triagens");
-
-    div.innerHTML = "";
-
-    if (data.length === 0) {
-
-      div.innerHTML = `
-
-        <p class="fila-vazia">
-
-          Nenhum paciente na fila.
-
-        </p>
-
-      `;
-
-      return;
-
-    }
-
-    data.forEach((t, index) => {
-
-      div.innerHTML += `
-
-        <div class="card">
-
-          <h3>
-            ${t.nome}
-          </h3>
-
-          <p>
-
-            <b>Sintoma:</b>
-
-            ${t.sintoma || "Não informado"}
-
-          </p>
-
-          <p>
-
-            <b>Temperatura:</b>
-
-            ${t.temperatura || "Não informada"}°C
-
-          </p>
-
-          <p>
-
-            <span class="${t.risco}">
-
-              ${t.risco}
-
-            </span>
-
-          </p>
-
-          <p>
-
-            <b>Alergia:</b>
-
-            ${t.alergia || "Nenhuma"}
-
-          </p>
-
-          <p>
-
-            <b>Observação:</b>
-
-            ${t.observacao || "Nenhuma"}
-
-          </p>
-
-          <div class="acoes-paciente">
-
-            <button
-              onclick="selecionar(${index})"
-            >
-
-              Atender
-
-            </button>
-
-            <button
-              class="btn-tv"
-              onclick="chamarNaTV('${t.nome.replace(/'/g, "\\'")}')"
-            >
-
-              📺 Chamar na TV
-
-            </button>
-
-            <button
-              class="btn-alta"
-              onclick="abrirFormularioAlta(${index})"
-            >
-
-              🏥 Dar Alta
-
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    });
-
-  })
-
-  .catch(error => {
-
-    console.error(
-      "Erro ao carregar triagens:",
-      error
-    );
-
-  });
-
-}
-
-/* =====================================================
-CHAMAR NA TV
-===================================================== */
-
-function chamarNaTV(nome) {
-
-const consultorio =
-  document
-    .getElementById("consultorio-num")
-    .value || "01";
-
-fetch("/tv/chamar", {
-
-  method: "POST",
-
-  headers: {
-
-    "Content-Type": "application/json"
-
-  },
-
-  body: JSON.stringify({
-
-    localTipo: "CONSULTÓRIO",
-
-    localNumero: consultorio,
-
-    paciente: nome
-
-  })
-
-})
-
-.then(r => r.json())
-
-.then(() => {
-
-  alert(
-
-    "✅ " +
-    nome +
-    " foi chamado na TV para o Consultório " +
-    consultorio +
-    "!"
-
-  );
-
-})
-
-.catch(error => {
-
-  console.error(error);
-
-  alert(
-    "❌ Erro ao chamar paciente na TV."
-  );
-
-});
-
-}
-
-/* =====================================================
-SELECIONAR PACIENTE
-===================================================== */
-
-function selecionar(index) {
-
-const t =
-  triagensCarregadas[index];
-
-if (!t) {
-
-  alert(
-    "Paciente não encontrado."
-  );
-
-  return;
-
-}
-
-document
-  .getElementById("paciente")
-  .value =
-  t.nome;
-
-document
-  .getElementById("diagnostico")
-  .value =
-  t.diagnostico || "";
-
-diagnosticoPacienteAtual =
-  t.diagnostico || "";
-
-document
-  .getElementById("obs")
-  .value =
-  t.observacao || "";
-
-if (
-  t.alergia &&
-  t.alergia !== "Nenhuma"
-) {
-
-  alert(
-
-    "⚠️ Paciente possui alergia: " +
-    t.alergia
-
-  );
-
-}
-
-}
-
-/* =====================================================
-CARREGAR MEDICAÇÕES
-===================================================== */
-
-function carregarMedicacoes() {
-
-fetch("/lista-medicacoes")
-
-  .then(r => r.json())
-
-  .then(data => {
-
-    const select =
-      document.getElementById("medicacao");
-
-    select.innerHTML = `
-
-      <option value="">
-
-        Selecione a medicação
-
-      </option>
-
-    `;
-
-    data.forEach(med => {
-
-      const option =
-        document.createElement("option");
-
-      option.value = med;
-
-      option.textContent = med;
-
-      select.appendChild(option);
-
-    });
-
-  })
-
-  .catch(error => {
-
-    console.error(
-
-      "Erro ao carregar medicações:",
-
-      error
-
-    );
-
-  });
-
-}
-
-/* =====================================================
-SALVAR CONSULTA
-===================================================== */
-
-function salvar() {
-
-const paciente =
-  document
-    .getElementById("paciente")
-    .value;
-
-const diagnostico =
-  document
-    .getElementById("diagnostico")
-    .value
-    .trim();
-
-const medicacao =
-  document
-    .getElementById("medicacao")
-    .value;
-
-const obs =
-  document
-    .getElementById("obs")
-    .value;
-
-if (!paciente) {
-
-  alert(
-
-    "Selecione um paciente clicando em Atender."
-
-  );
-
-  return;
-
-}
-
-if (!diagnostico) {
-
-  alert(
-    "Informe o diagnóstico."
-  );
-
-  document
-    .getElementById("diagnostico")
-    .focus();
-
-  return;
-
-}
-
-if (!medicacao) {
-
-  alert(
-    "Selecione uma medicação."
-  );
-
-  return;
-
-}
-
-diagnosticoPacienteAtual =
-  diagnostico;
-
-fetch("/consulta", {
-
-  method: "POST",
-
-  headers: {
-
-    "Content-Type": "application/json"
-
-  },
-
-  body: JSON.stringify({
-
-    paciente,
-    diagnostico,
-    medicacao,
-    obs
-
-  })
-
-})
-
-.then(r => r.json())
-
-.then(() => {
-
-  alert(
-    "Consulta salva"
-  );
-
-  document
-    .getElementById("diagnostico")
-    .value = "";
-
-  document
-    .getElementById("medicacao")
-    .value = "";
-
-  document
-    .getElementById("obs")
-    .value = "";
-
-})
-
-.catch(error => {
-
-  console.error(error);
-
-  alert(
-    "❌ Erro ao salvar consulta."
-  );
-
-});
-
-}
-
-/* =====================================================
-ABRIR FORMULÁRIO DE ALTA
-===================================================== */
-
-function abrirFormularioAlta(index) {
-
-const paciente =
-  triagensCarregadas[index];
-
-if (!paciente) {
-
-  alert(
-    "Paciente não encontrado."
-  );
-
-  return;
-
-}
-
-document
-  .getElementById("altaPaciente")
-  .value =
-  paciente.nome || "";
-
-let diagnostico =
-  paciente.diagnostico || "";
-
-if (!diagnostico) {
-
-  diagnostico =
-    diagnosticoPacienteAtual;
-
-}
-
-if (!diagnostico) {
-
-  diagnostico =
-    document
-      .getElementById("diagnostico")
-      .value
-      .trim();
-
-}
-
-document
-  .getElementById("altaDiagnostico")
-  .value =
-  diagnostico;
-
-document
-  .getElementById("motivoAlta")
-  .value = "";
-
-document
-  .getElementById("observacoesAlta")
-  .value = "";
-
-document
-  .getElementById("orientacoesAlta")
-  .value = "";
-
-/* DATA ATUAL */
-
-const hoje =
-  new Date();
-
-const ano =
-  hoje.getFullYear();
-
-const mes =
-  String(
-    hoje.getMonth() + 1
-  ).padStart(2, "0");
-
-const dia =
-  String(
-    hoje.getDate()
-  ).padStart(2, "0");
-
-document
-  .getElementById("dataAlta")
-  .value =
-  `${ano}-${mes}-${dia}`;
-
-/* ABRIR MODAL */
 
 document
   .getElementById("modalAlta")
-  .style.display =
-  "flex";
+  .addEventListener(
+    "click",
+    function(event) {
 
-setTimeout(() => {
+      if (event.target === this) {
 
-  document
-    .getElementById("motivoAlta")
-    .focus();
+        fecharFormularioAlta();
+        }
 
-}, 100);
-
-}
-
-/* =====================================================
-FECHAR FORMULÁRIO
-===================================================== */
-
-function fecharFormularioAlta() {
-
-document
-  .getElementById("modalAlta")
-  .style.display =
-  "none";
-
-}
-
-/* =====================================================
-GERAR PDF
-===================================================== */
-
-function gerarAltaPDF() {
-
-const paciente =
-  document
-    .getElementById("altaPaciente")
-    .value
-    .trim();
-
-const diagnostico =
-  document
-    .getElementById("altaDiagnostico")
-    .value
-    .trim();
-
-const motivo =
-  document
-    .getElementById("motivoAlta")
-    .value
-    .trim();
-
-const observacoes =
-  document
-    .getElementById("observacoesAlta")
-    .value
-    .trim();
-
-const orientacoes =
-  document
-    .getElementById("orientacoesAlta")
-    .value
-    .trim();
-
-const data =
-  document
-    .getElementById("dataAlta")
-    .value;
-
-/* =================================================
-   VALIDAÇÕES
-   ================================================= */
-
-if (!paciente) {
-
-  alert(
-    "⚠️ Paciente não informado."
-  );
-
-  return;
-
-}
-
-if (!diagnostico) {
-
-  alert(
-    "⚠️ Diagnóstico não informado."
-  );
-
-  return;
-
-}
-
-if (!motivo) {
-
-  alert(
-    "⚠️ Informe o motivo da alta."
-  );
-
-  document
-    .getElementById("motivoAlta")
-    .focus();
-
-  return;
-
-}
-
-if (!data) {
-
-  alert(
-    "⚠️ Informe a data da alta."
-  );
-
-  return;
-
-}
-
-/* =================================================
-   PREENCHER PDF
-   ================================================= */
-
-document
-  .getElementById("pdfPaciente")
-  .textContent =
-  paciente;
-
-document
-  .getElementById("pdfDiagnostico")
-  .textContent =
-  diagnostico;
-
-document
-  .getElementById("pdfMotivo")
-  .textContent =
-  motivo;
-
-document
-  .getElementById("pdfObservacoes")
-  .textContent =
-  observacoes ||
-  "Nenhuma observação registrada.";
-
-/* =================================================
-   DATA
-   ================================================= */
-
-const partes =
-  data.split("-");
-
-const dataFormatada =
-  `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-document
-  .getElementById("pdfData")
-  .textContent =
-  dataFormatada;
-
-/* =================================================
-   HORA
-   ================================================= */
-
-const agora =
-  new Date();
-
-const hora =
-  String(
-    agora.getHours()
-  ).padStart(2, "0");
-
-const minutos =
-  String(
-    agora.getMinutes()
-  ).padStart(2, "0");
-
-document
-  .getElementById("pdfHora")
-  .textContent =
-  `${hora}:${minutos}`;
-
-/* =================================================
-   DATA DE EMISSÃO
-   ================================================= */
-
-document
-  .getElementById("pdfDataEmissao")
-  .textContent =
-  `${String(agora.getDate()).padStart(2, "0")}/` +
-  `${String(agora.getMonth() + 1).padStart(2, "0")}/` +
-  `${agora.getFullYear()}`;
-
-/* =================================================
-   DADOS DO MÉDICO
-   
-   ALTERE AQUI
-   ================================================= */
-
-const medico =
-  "NOME DO MÉDICO";
-
-const crm =
-  "CRM 000000";
-
-document
-  .getElementById("pdfMedico")
-  .textContent =
-  medico;
-
-document
-  .getElementById("pdfCRM")
-  .textContent =
-  crm;
-
-document
-  .getElementById("pdfAssinatura")
-  .textContent =
-  medico;
-
-document
-  .getElementById("pdfAssinaturaCRM")
-  .textContent =
-  crm;
-
-/* =================================================
-   ORIENTAÇÕES
-   ================================================= */
-
-document
-  .getElementById("pdfOrientacoes")
-  .textContent =
-  orientacoes ||
-  "Paciente orientado quanto aos cuidados necessários após a alta.";
-
-/* =================================================
-   FECHAR MODAL
-   ================================================= */
-
-fecharFormularioAlta();
-
-/* =================================================
-   IMPRIMIR / SALVAR PDF
-   ================================================= */
-
-setTimeout(() => {
-
-  window.print();
-
-}, 300);
-
-}
-
-/* =====================================================
-FECHAR MODAL CLICANDO FORA
-===================================================== */
-
-document
-.getElementById("modalAlta")
-.addEventListener(
-"click",
-function(event) {
-
-    if (event.target === this) {
-
-      fecharFormularioAlta();
+      }
 
     }
+  );
 
-  }
-);
+    );
+
 
 /* =====================================================
-FECHAR COM ESC
-===================================================== */
+   FECHAR COM ESC
+   ===================================================== */
+  /* =====================================================
+     FECHAR COM ESC
+     ===================================================== */
 
 document.addEventListener(
-"keydown",
-function(event) {
+  "keydown",
+  function(event) {
+  document.addEventListener(
+    "keydown",
+    function(event) {
 
-  if (event.key === "Escape") {
+    if (event.key === "Escape") {
+      if (event.key === "Escape") {
 
-    const modal =
-      document.getElementById("modalAlta");
+      const modal =
+        document.getElementById("modalAlta");
+        const modal =
+          document.getElementById("modalAlta");
 
-    if (
-      modal.style.display === "flex"
-    ) {
+        if (
+          modal.style.display === "flex"
+        ) {
 
-      fecharFormularioAlta();
+      if (
+        modal.style.display === "flex"
+      ) {
+          fecharFormularioAlta();
+
+        fecharFormularioAlta();
+        }
+
+      }
 
     }
+  );
 
   }
-
-}
-
 );
 
+
+
 /* =====================================================
-INICIAR SISTEMA
-===================================================== */
+   INICIAR SISTEMA
+   ===================================================== */
 
 carregar();
+  /* =====================================================
+     INICIAR SISTEMA
+     ===================================================== */
 
 carregarMedicacoes();
+  carregar();
+
+  carregarMedicacoes();
+
 
 /* =====================================================
-ATUALIZAR FILA
-===================================================== */
+   ATUALIZAR FILA A CADA 10 SEGUNDOS
+   ===================================================== */
+  /* =====================================================
+     ATUALIZAR FILA A CADA 10 SEGUNDOS
+     ===================================================== */
 
 setInterval(
-carregar,
-10000
+  carregar,
+  10000
 );
-
-</script> </body> </html>
-Antes de usar em produção, altere no código estes campos:
-
-const medico = "NOME DO MÉDICO";
-const crm = "CRM 000000";
-
-e no cabeçalho:
-
-<h1>NOME DA CLÍNICA / HOSPITAL</h1>
-
-<p>CNPJ: 00.000.000/0000-00</p>
-
-O PDF agora terá identificação do paciente, data da alta, horário, diagnóstico, motivo da alta, observações, orientações, médico responsável, CRM, data de emissão, assinatura e rodapé, com formatação própria para A4.
-
-Se você me mandar também o seu css/style.css, consigo integrar o visual do documento com o restante do seu painel para não ficar parecendo uma parte separada do sistema.
-
-
-Inicie sessão para obter ajuda mais personalizada na escrita, reescrita e tradução.
-
-
-Iniciar sessão
-
-Criar conta grátis
-Dito por si:
-
-REESCREVA TUDO PRONTO PARA EU CIOPIARE COLAAAAAAAAAAAAAR
-
-Dito pelo ChatGPT:
-Sim — agora vai TUDO EM UM ÚNICO ARQUIVO, pronto para você copiar → colar → salvar como .html. Não precisa juntar com os códigos anteriores.
-
-Deixei também o CSS dentro do próprio HTML, então você não precisa mexer no style.css para o layout funcionar.
-
-<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8">
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
-<title>Painel Médico</title> <style>
-/* =====================================================
-   CONFIGURAÇÕES GERAIS
-   ===================================================== */
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-
-  margin: 0;
-
-  padding: 0;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  background: #f4f7f9;
-
-  color: #222;
-
-}
-
-.container {
-
-  width: 95%;
-
-  max-width: 1200px;
-
-  margin: 25px auto;
-
-}
-
-/* =====================================================
-   CABEÇALHO DO PAINEL
-   ===================================================== */
-
-.painel-header {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  background: #1f5f8b;
-
-  color: white;
-
-  padding: 18px 22px;
-
-  border-radius: 10px;
-
-  margin-bottom: 20px;
-
-}
-
-.painel-titulo {
-
-  margin: 0;
-
-  font-size: 22px;
-
-}
-
-button {
-
-  border: none;
-
-  border-radius: 6px;
-
-  padding: 10px 16px;
-
-  cursor: pointer;
-
-  font-size: 14px;
-
-  font-weight: bold;
-
-}
-
-.btn-abrir-tv {
-
-  background: white;
-
-  color: #1f5f8b;
-
-}
-
-/* =====================================================
-   CONSULTÓRIO
-   ===================================================== */
-
-.consultorio-input {
-
-  background: white;
-
-  padding: 15px;
-
-  border-radius: 8px;
-
-  margin-bottom: 20px;
-
-  box-shadow:
-    0 2px 8px rgba(0,0,0,.06);
-
-}
-
-.consultorio-input label {
-
-  font-weight: bold;
-
-  margin-right: 10px;
-
-}
-
-.consultorio-input input {
-
-  width: 80px;
-
-  padding: 8px;
-
-  border: 1px solid #ccc;
-
-  border-radius: 5px;
-
-}
-
-.consultorio-info {
-
-  color: #777;
-
-  margin-left: 10px;
-
-  font-size: 13px;
-
-}
-
-/* =====================================================
-   CARDS DOS PACIENTES
-   ===================================================== */
-
-#triagens {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(300px, 1fr));
-
-  gap: 18px;
-
-}
-
-.card {
-
-  background: white;
-
-  padding: 18px;
-
-  border-radius: 10px;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.08);
-
-  border-left: 5px solid #1f5f8b;
-
-}
-
-.card h3 {
-
-  margin-top: 0;
-
-  color: #1f5f8b;
-
-}
-
-.card p {
-
-  font-size: 14px;
-
-  line-height: 1.5;
-
-}
-
-.acoes-paciente {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-
-  margin-top: 15px;
-
-}
-
-.acoes-paciente button {
-
-  background: #1f5f8b;
-
-  color: white;
-
-}
-
-.acoes-paciente .btn-tv {
-
-  background: #673ab7;
-
-}
-
-.acoes-paciente .btn-alta {
-
-  background: #16844a;
-
-}
-
-.fila-vazia {
-
-  background: white;
-
-  padding: 25px;
-
-  border-radius: 8px;
-
-  text-align: center;
-
-  color: #777;
-
-}
-
-/* =====================================================
-   CONSULTA
-   ===================================================== */
-
-.container > h3 {
-
-  color: #1f5f8b;
-
-  margin-top: 25px;
-
-}
-
-#paciente,
-#diagnostico,
-#medicacao,
-#obs {
-
-  display: block;
-
-  width: 100%;
-
-  margin-bottom: 12px;
-
-  padding: 11px;
-
-  border: 1px solid #ccc;
-
-  border-radius: 6px;
-
-  font-size: 14px;
-
-}
-
-#obs {
-
-  min-height: 100px;
-
-  resize: vertical;
-
-}
-
-.container > button {
-
-  background: #1f5f8b;
-
-  color: white;
-
-}
-
-/* =====================================================
-   MODAL DE ALTA
-   ===================================================== */
-
-.modal-alta {
-
-  display: none;
-
-  position: fixed;
-
-  z-index: 9999;
-
-  inset: 0;
-
-  background:
-    rgba(0,0,0,.65);
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 20px;
-
-}
-
-.caixa-alta {
-
-  width: 100%;
-
-  max-width: 650px;
-
-  max-height: 95vh;
-
-  overflow-y: auto;
-
-  background: white;
-
-  border-radius: 12px;
-
-  padding: 25px;
-
-  box-shadow:
-    0 10px 40px rgba(0,0,0,.3);
-
-}
-
-.caixa-alta h2 {
-
-  color: #1f5f8b;
-
-  margin-top: 0;
-
-  border-bottom: 2px solid #eee;
-
-  padding-bottom: 15px;
-
-}
-
-.campo-alta {
-
-  margin-bottom: 17px;
-
-}
-
-.campo-alta label {
-
-  display: block;
-
-  font-weight: bold;
-
-  margin-bottom: 6px;
-
-  color: #444;
-
-}
-
-.campo-alta input,
-.campo-alta textarea {
-
-  width: 100%;
-
-  padding: 11px;
-
-  border: 1px solid #ccc;
-
-  border-radius: 6px;
-
-  font-family: inherit;
-
-  font-size: 14px;
-
-}
-
-.campo-alta textarea {
-
-  resize: vertical;
-
-}
-
-.botoes-alta {
-
-  display: flex;
-
-  justify-content: flex-end;
-
-  gap: 10px;
-
-  margin-top: 20px;
-
-}
-
-.btn-gerar-alta {
-
-  background: #16844a;
-
-  color: white;
-
-}
-
-.btn-cancelar-alta {
-
-  background: #777;
-
-  color: white;
-
-}
-
-/* =====================================================
-   DOCUMENTO DE ALTA
-   ===================================================== */
-
-#documentoAlta {
-
-  display: none;
-
-}
-
-.cabecalho-pdf {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 18px;
-
-  border-bottom: 3px solid #1f5f8b;
-
-  padding-bottom: 15px;
-
-  margin-bottom: 20px;
-
-}
-
-.logo-hospital {
-
-  width: 58px;
-
-  height: 58px;
-
-  border: 2px solid #1f5f8b;
-
-  border-radius: 10px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 30px;
-
-  flex-shrink: 0;
-
-}
-
-.info-instituicao h1 {
-
-  margin: 0 0 4px 0;
-
-  font-size: 19px;
-
-  color: #1f3c53;
-
-}
-
-.info-instituicao p {
-
-  margin: 2px 0;
-
-  font-size: 11px;
-
-  color: #555;
-
-}
-
-.titulo-documento {
-
-  text-align: center;
-
-  margin-bottom: 25px;
-
-}
-
-.titulo-documento h2 {
-
-  margin: 0;
-
-  font-size: 21px;
-
-  color: #1f3c53;
-
-}
-
-.titulo-documento p {
-
-  margin: 5px 0 0 0;
-
-  color: #666;
-
-  font-size: 12px;
-
-}
-
-.secao-pdf {
-
-  margin-bottom: 20px;
-
-}
-
-.secao-pdf h3 {
-
-  background: #eef5f9;
-
-  color: #1f5f8b;
-
-  border-left: 5px solid #1f5f8b;
-
-  padding: 8px 11px;
-
-  font-size: 14px;
-
-  margin: 0 0 10px 0;
-
-}
-
-.grid-pdf {
-
-  display: grid;
-
-  grid-template-columns:
-    2fr 1fr 1fr;
-
-  gap: 10px;
-
-}
-
-.campo-pdf {
-
-  border: 1px solid #d5dce0;
-
-  border-radius: 5px;
-
-  padding: 9px 11px;
-
-  min-height: 43px;
-
-}
-
-.campo-full {
-
-  width: 100%;
-
-  margin-bottom: 10px;
-
-}
-
-.label-pdf {
-
-  display: block;
-
-  font-size: 9px;
-
-  font-weight: bold;
-
-  color: #68757d;
-
-  text-transform: uppercase;
-
-  margin-bottom: 4px;
-
-}
-
-.valor-pdf {
-
-  font-size: 12px;
-
-  color: #222;
-
-  font-weight: 500;
-
-}
-
-.texto-pdf {
-
-  font-size: 12px;
-
-  line-height: 1.55;
-
-  color: #222;
-
-  white-space: pre-wrap;
-
-  min-height: 20px;
-
-}
-
-.orientacoes-pdf {
-
-  border: 1px solid #d5dce0;
-
-  border-radius: 5px;
-
-  padding: 12px;
-
-  background: #fafafa;
-
-}
-
-.assinatura-pdf {
-
-  margin-top: 45px;
-
-  text-align: center;
-
-  font-size: 12px;
-
-  page-break-inside: avoid;
-
-}
-
-.linha-assinatura {
-
-  margin-bottom: 8px;
-
-}
-
-.assinatura-pdf p {
-
-  margin-top: 5px;
-
-  color: #666;
-
-  font-size: 10px;
-
-}
-
-.rodape-pdf {
-
-  margin-top: 35px;
-
-  padding-top: 10px;
-
-  border-top: 1px solid #ccc;
-
-  text-align: center;
-
-  color: #777;
-
-  font-size: 8px;
-
-  line-height: 1.4;
-
-}
-
-/* =====================================================
-   RESPONSIVO
-   ===================================================== */
-
-@media (max-width: 700px) {
-
-  .painel-header {
-
-    flex-direction: column;
-
-    gap: 12px;
-
-    align-items: stretch;
-
-  }
-
-  .grid-pdf {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .consultorio-info {
-
-    display: block;
-
-    margin: 8px 0 0 0;
-
-  }
-
-}
-
-/* =====================================================
-   IMPRESSÃO / PDF
-   ===================================================== */
-
-@media print {
-
-  @page {
-
-    size: A4;
-
-    margin: 13mm;
-
-  }
-
-  html,
-  body {
-
-    background: white !important;
-
-    margin: 0 !important;
-
-    padding: 0 !important;
-
-  }
-
-  body * {
-
-    visibility: hidden;
-
-  }
-
-  #documentoAlta,
-  #documentoAlta * {
-
-    visibility: visible;
-
-  }
-
-  #documentoAlta {
-
-    display: block !important;
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 100%;
-
-    background: white;
-
-    color: black;
-
-  }
-
-  .secao-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-  .cabecalho-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-  .assinatura-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-  .rodape-pdf {
-
-    page-break-inside: avoid;
-
-  }
-
-}
-
-</style> </head> <body> <!-- ===================================================== PAINEL MÉDICO ===================================================== --> <div class="container"> <div class="painel-header">
-<h2 class="painel-titulo">
-  🩺 Painel Médico
-</h2>
-
-<button
-  class="btn-abrir-tv"
-  onclick="window.open('tv.html','_blank')"
->
-
-  📺 Abrir Tela da TV
-
-</button>
-
-</div> <!-- CONSULTÓRIO --> <div class="consultorio-input">
-<label>
-  Meu Consultório:
-</label>
-
-<input
-  type="text"
-  id="consultorio-num"
-  value="01"
->
-
-<span class="consultorio-info">
-
-  Este número será exibido na TV ao chamar o paciente.
-
-</span>
-
-</div> <!-- TRIAGENS --> <div id="triagens"></div> <hr> <!-- CONSULTA --> <h3> Consulta </h3>
-<input
-id="paciente"
-placeholder="Paciente"
-readonly
-
-<input
-id="diagnostico"
-placeholder="Diagnóstico"
-
-<select id="medicacao">
-<option value="">
-  Selecione a medicação
-</option>
-
-</select> <textarea id="obs" placeholder="Observações" ></textarea> <button onclick="salvar()"> 💾 Salvar Consulta </button> </div> <!-- ===================================================== MODAL DE ALTA ===================================================== --> <div id="modalAlta" class="modal-alta" > <div class="caixa-alta">
-<h2>
-  🏥 Dar Alta ao Paciente
-</h2>
-
-<!-- PACIENTE -->
-
-<div class="campo-alta">
-
-  <label>
-    Paciente
-  </label>
-
-  <input
-    type="text"
-    id="altaPaciente"
-    readonly
-  >
-
-</div>
-
-<!-- DIAGNÓSTICO -->
-
-<div class="campo-alta">
-
-  <label>
-    Diagnóstico
-  </label>
-
-  <input
-    type="text"
-    id="altaDiagnostico"
-    readonly
-  >
-
-</div>
-
-<!-- MOTIVO -->
-
-<div class="campo-alta">
-
-  <label>
-    Motivo da Alta *
-  </label>
-
-  <textarea
-    id="motivoAlta"
-    rows="5"
-    placeholder="Informe o motivo da alta..."
-  ></textarea>
-
-</div>
-
-<!-- OBSERVAÇÕES -->
-
-<div class="campo-alta">
-
-  <label>
-    Observações
-  </label>
-
-  <textarea
-    id="observacoesAlta"
-    rows="4"
-    placeholder="Digite observações adicionais..."
-  ></textarea>
-
-</div>
-
-<!-- ORIENTAÇÕES -->
-
-<div class="campo-alta">
-
-  <label>
-    Orientações ao Paciente
-  </label>
-
-  <textarea
-    id="orientacoesAlta"
-    rows="5"
-    placeholder="Informe orientações, cuidados, retorno, sinais de alerta, etc."
-  ></textarea>
-
-</div>
-
-<!-- DATA -->
-
-<div class="campo-alta">
-
-  <label>
-    Data da Alta *
-  </label>
-
-  <input
-    type="date"
-    id="dataAlta"
-  >
-
-</div>
-
-<!-- BOTÕES -->
-
-<div class="botoes-alta">
-
-  <button
-    type="button"
-    class="btn-gerar-alta"
-    onclick="gerarAltaPDF()"
-  >
-
-    📄 Gerar PDF
-
-  </button>
-
-  <button
-    type="button"
-    class="btn-cancelar-alta"
-    onclick="fecharFormularioAlta()"
-  >
-
-    Cancelar
-
-  </button>
-
-</div>
-
-</div> </div> <!-- ===================================================== DOCUMENTO QUE SERÁ IMPRESSO / SALVO COMO PDF ===================================================== --> <div id="documentoAlta"> <!-- CABEÇALHO --> <div class="cabecalho-pdf">
-<div class="logo-hospital">
-  🏥
-</div>
-
-<div class="info-instituicao">
-
-  <!-- =================================================
-       ALTERE OS DADOS DA INSTITUIÇÃO AQUI
-       ================================================= -->
-
-  <h1>
-    NOME DA CLÍNICA / HOSPITAL
-  </h1>
-
-  <p>
-    Serviço de Atendimento Médico
-  </p>
-
-  <p>
-    CNPJ: 00.000.000/0000-00
-  </p>
-
-</div>
-
-</div> <!-- TÍTULO --> <div class="titulo-documento">
-<h2>
-  DOCUMENTO DE ALTA MÉDICA
-</h2>
-
-<p>
-  Relatório de alta do paciente
-</p>
-
-</div> <!-- ===================================================== 1. IDENTIFICAÇÃO ===================================================== --> <div class="secao-pdf">
-<h3>
-  1. Identificação do Atendimento
-</h3>
-
-<div class="grid-pdf">
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Paciente
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfPaciente"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Data da Alta
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfData"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Horário
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfHora"
-    ></span>
-
-  </div>
-
-</div>
-
-</div> <!-- ===================================================== 2. INFORMAÇÕES MÉDICAS ===================================================== --> <div class="secao-pdf">
-<h3>
-  2. Informações Médicas
-</h3>
-
-<div class="campo-pdf campo-full">
-
-  <span class="label-pdf">
-    Diagnóstico
-  </span>
-
-  <div
-    class="texto-pdf"
-    id="pdfDiagnostico"
-  ></div>
-
-</div>
-
-<div class="campo-pdf campo-full">
-
-  <span class="label-pdf">
-    Motivo da Alta
-  </span>
-
-  <div
-    class="texto-pdf"
-    id="pdfMotivo"
-  ></div>
-
-</div>
-
-<div class="campo-pdf campo-full">
-
-  <span class="label-pdf">
-    Observações
-  </span>
-
-  <div
-    class="texto-pdf"
-    id="pdfObservacoes"
-  ></div>
-
-</div>
-
-</div> <!-- ===================================================== 3. ORIENTAÇÕES ===================================================== --> <div class="secao-pdf">
-<h3>
-  3. Orientações ao Paciente
-</h3>
-
-<div
-  class="texto-pdf orientacoes-pdf"
-  id="pdfOrientacoes"
-></div>
-
-</div> <!-- ===================================================== 4. PROFISSIONAL ===================================================== --> <div class="secao-pdf">
-<h3>
-  4. Profissional Responsável
-</h3>
-
-<div class="grid-pdf">
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Médico responsável
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfMedico"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      CRM
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfCRM"
-    ></span>
-
-  </div>
-
-  <div class="campo-pdf">
-
-    <span class="label-pdf">
-      Data de emissão
-    </span>
-
-    <span
-      class="valor-pdf"
-      id="pdfDataEmissao"
-    ></span>
-
-  </div>
-
-</div>
-
-</div> <!-- ===================================================== ASSINATURA ===================================================== --> <div class="assinatura-pdf">
-<div class="linha-assinatura">
-
-  __________________________________________
-
-</div>
-
-<strong id="pdfAssinatura">
-</strong>
-
-<br>
-
-<span id="pdfAssinaturaCRM">
-</span>
-
-<p>
-  Médico responsável pela alta
-</p>
-
-</div> <!-- ===================================================== RODAPÉ ===================================================== --> <div class="rodape-pdf">
-<p>
-  Documento emitido eletronicamente pelo sistema de atendimento.
-</p>
-
-<p>
-  Este documento deve ser mantido pelo paciente para fins de acompanhamento.
-</p>
-
-</div> </div> <script>
-/* =====================================================
-VARIÁVEIS
-===================================================== */
-
-let triagensCarregadas = [];
-
-let diagnosticoPacienteAtual = "";
-
-/* =====================================================
-CARREGAR PACIENTES
-===================================================== */
-
-function carregar() {
-
-fetch("/triagens")
-
-  .then(r => r.json())
-
-  .then(data => {
-
-    triagensCarregadas = data;
-
-    const div =
-      document.getElementById("triagens");
-
-    div.innerHTML = "";
-
-    if (data.length === 0) {
-
-      div.innerHTML = `
-
-        <p class="fila-vazia">
-
-          Nenhum paciente na fila.
-
-        </p>
-
-      `;
-
-      return;
-
-    }
-
-    data.forEach((t, index) => {
-
-      const nomeSeguro =
-        String(t.nome || "")
-          .replace(/\\/g, "\\\\")
-          .replace(/'/g, "\\'");
-
-      div.innerHTML += `
-
-        <div class="card">
-
-          <h3>
-            ${t.nome || "Paciente"}
-          </h3>
-
-          <p>
-
-            <b>Sintoma:</b>
-
-            ${t.sintoma || "Não informado"}
-
-          </p>
-
-          <p>
-
-            <b>Temperatura:</b>
-
-            ${t.temperatura || "Não informada"}°C
-
-          </p>
-
-          <p>
-
-            <span class="${t.risco || ""}">
-
-              ${t.risco || "Não informado"}
-
-            </span>
-
-          </p>
-
-          <p>
-
-            <b>Alergia:</b>
-
-            ${t.alergia || "Nenhuma"}
-
-          </p>
-
-          <p>
-
-            <b>Observação:</b>
-
-            ${t.observacao || "Nenhuma"}
-
-          </p>
-
-          <div class="acoes-paciente">
-
-            <button
-              onclick="selecionar(${index})"
-            >
-
-              👨‍⚕️ Atender
-
-            </button>
-
-            <button
-              class="btn-tv"
-              onclick="chamarNaTV('${nomeSeguro}')"
-            >
-
-              📺 Chamar na TV
-
-            </button>
-
-            <button
-              class="btn-alta"
-              onclick="abrirFormularioAlta(${index})"
-            >
-
-              🏥 Dar Alta
-
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    });
-
-  })
-
-  .catch(error => {
-
-    console.error(
-      "Erro ao carregar triagens:",
-      error
-    );
-
-  });
-
-}
-
-/* =====================================================
-CHAMAR NA TV
-===================================================== */
-
-function chamarNaTV(nome) {
-
-const consultorio =
-  document
-    .getElementById("consultorio-num")
-    .value || "01";
-
-fetch("/tv/chamar", {
-
-  method: "POST",
-
-  headers: {
-
-    "Content-Type": "application/json"
-
-  },
-
-  body: JSON.stringify({
-
-    localTipo: "CONSULTÓRIO",
-
-    localNumero: consultorio,
-
-    paciente: nome
-
-  })
-
-})
-
-.then(r => r.json())
-
-.then(() => {
-
-  alert(
-
-    "✅ " +
-    nome +
-    " foi chamado na TV para o Consultório " +
-    consultorio +
-    "!"
-
+  setInterval(
+    carregar,
+    10000
   );
 
-})
-
-.catch(error => {
-
-  console.error(error);
-
-  alert(
-    "❌ Erro ao chamar paciente na TV."
-  );
-
-});
-
-}
-
-/* =====================================================
-SELECIONAR PACIENTE
-===================================================== */
-
-function selecionar(index) {
-
-const t =
-  triagensCarregadas[index];
-
-if (!t) {
-
-  alert(
-    "Paciente não encontrado."
-  );
-
-  return;
-
-}
-
-document
-  .getElementById("paciente")
-  .value =
-  t.nome || "";
-
-document
-  .getElementById("diagnostico")
-  .value =
-  t.diagnostico || "";
-
-diagnosticoPacienteAtual =
-  t.diagnostico || "";
-
-document
-  .getElementById("obs")
-  .value =
-  t.observacao || "";
-
-if (
-  t.alergia &&
-  t.alergia !== "Nenhuma"
-) {
-
-  alert(
-
-    "⚠️ Paciente possui alergia: " +
-    t.alergia
-
-  );
-
-}
-
-}
-
-/* =====================================================
-CARREGAR MEDICAÇÕES
-===================================================== */
-
-function carregarMedicacoes() {
-
-fetch("/lista-medicacoes")
-
-  .then(r => r.json())
-
-  .then(data => {
-
-    const select =
-      document.getElementById("medicacao");
-
-    select.innerHTML = `
-
-      <option value="">
-
-        Selecione a medicação
-
-      </option>
-
-    `;
-
-    data.forEach(med => {
-
-      const option =
-        document.createElement("option");
-
-      option.value = med;
-
-      option.textContent = med;
-
-      select.appendChild(option);
-
-    });
-
-  })
-
-  .catch(error => {
-
-    console.error(
-
-      "Erro ao carregar medicações:",
-
-      error
-
-    );
-
-  });
-
-}
-
-/* =====================================================
-SALVAR CONSULTA
-===================================================== */
-
-function salvar() {
-
-const paciente =
-  document
-    .getElementById("paciente")
-    .value;
-
-const diagnostico =
-  document
-    .getElementById("diagnostico")
-    .value
-    .trim();
-
-const medicacao =
-  document
-    .getElementById("medicacao")
-    .value;
-
-const obs =
-  document
-    .getElementById("obs")
-    .value;
-
-if (!paciente) {
-
-  alert(
-
-    "Selecione um paciente clicando em Atender."
-
-  );
-
-  return;
-
-}
-
-if (!diagnostico) {
-
-  alert(
-    "Informe o diagnóstico."
-  );
-
-  document
-    .getElementById("diagnostico")
-    .focus();
-
-  return;
-
-}
-
-if (!medicacao) {
-
-  alert(
-    "Selecione uma medicação."
-  );
-
-  return;
-
-}
-
-diagnosticoPacienteAtual =
-  diagnostico;
-
-fetch("/consulta", {
-
-  method: "POST",
-
-  headers: {
-
-    "Content-Type": "application/json"
-
-  },
-
-  body: JSON.stringify({
-
-    paciente,
-    diagnostico,
-    medicacao,
-    obs
-
-  })
-
-})
-
-.then(r => r.json())
-
-.then(() => {
-
-  alert(
-    "✅ Consulta salva."
-  );
-
-  document
-    .getElementById("diagnostico")
-    .value = "";
-
-  document
-    .getElementById("medicacao")
-    .value = "";
-
-  document
-    .getElementById("obs")
-    .value = "";
-
-})
-
-.catch(error => {
-
-  console.error(error);
-
-  alert(
-    "❌ Erro ao salvar consulta."
-  );
-
-});
-
-}
-
-/* =====================================================
-ABRIR FORMULÁRIO DE ALTA
-===================================================== */
-
-function abrirFormularioAlta(index) {
-
-const paciente =
-  triagensCarregadas[index];
-
-if (!paciente) {
-
-  alert(
-    "Paciente não encontrado."
-  );
-
-  return;
-
-}
-
-document
-  .getElementById("altaPaciente")
-  .value =
-  paciente.nome || "";
-
-let diagnostico =
-  paciente.diagnostico || "";
-
-if (!diagnostico) {
-
-  diagnostico =
-    diagnosticoPacienteAtual;
-
-}
-
-if (!diagnostico) {
-
-  diagnostico =
-    document
-      .getElementById("diagnostico")
-      .value
-      .trim();
-
-}
-
-document
-  .getElementById("altaDiagnostico")
-  .value =
-  diagnostico;
-
-document
-  .getElementById("motivoAlta")
-  .value = "";
-
-document
-  .getElementById("observacoesAlta")
-  .value = "";
-
-document
-  .getElementById("orientacoesAlta")
-  .value = "";
-
-/* DATA ATUAL */
-
-const hoje =
-  new Date();
-
-const ano =
-  hoje.getFullYear();
-
-const mes =
-  String(
-    hoje.getMonth() + 1
-  ).padStart(2, "0");
-
-const dia =
-  String(
-    hoje.getDate()
-  ).padStart(2, "0");
-
-document
-  .getElementById("dataAlta")
-  .value =
-  `${ano}-${mes}-${dia}`;
-
-/* ABRIR MODAL */
-
-document
-  .getElementById("modalAlta")
-  .style.display =
-  "flex";
-
-setTimeout(() => {
-
-  document
-    .getElementById("motivoAlta")
-    .focus();
-
-}, 100);
-
-}
-
-/* =====================================================
-FECHAR FORMULÁRIO DE ALTA
-===================================================== */
-
-function fecharFormularioAlta() {
-
-document
-  .getElementById("modalAlta")
-  .style.display =
-  "none";
-
-}
-
-/* =====================================================
-GERAR PDF
-===================================================== */
-
-function gerarAltaPDF() {
-
-const paciente =
-  document
-    .getElementById("altaPaciente")
-    .value
-    .trim();
-
-const diagnostico =
-  document
-    .getElementById("altaDiagnostico")
-    .value
-    .trim();
-
-const motivo =
-  document
-    .getElementById("motivoAlta")
-    .value
-    .trim();
-
-const observacoes =
-  document
-    .getElementById("observacoesAlta")
-    .value
-    .trim();
-
-const orientacoes =
-  document
-    .getElementById("orientacoesAlta")
-    .value
-    .trim();
-
-const data =
-  document
-    .getElementById("dataAlta")
-    .value;
-
-/* =================================================
-   VALIDAÇÕES
-   ================================================= */
-
-if (!paciente) {
-
-  alert(
-    "⚠️ Paciente não informado."
-  );
-
-  return;
-
-}
-
-if (!diagnostico) {
-
-  alert(
-    "⚠️ Diagnóstico não informado."
-  );
-
-  return;
-
-}
-
-if (!motivo) {
-
-  alert(
-    "⚠️ Informe o motivo da alta."
-  );
-
-  document
-    .getElementById("motivoAlta")
-    .focus();
-
-  return;
-
-}
-
-if (!data) {
-
-  alert(
-    "⚠️ Informe a data da alta."
-  );
-
-  return;
-
-}
-
-/* =================================================
-   PREENCHER PACIENTE
-   ================================================= */
-
-document
-  .getElementById("pdfPaciente")
-  .textContent =
-  paciente;
-
-/* =================================================
-   DIAGNÓSTICO
-   ================================================= */
-
-document
-  .getElementById("pdfDiagnostico")
-  .textContent =
-  diagnostico;
-
-/* =================================================
-   MOTIVO DA ALTA
-   ================================================= */
-
-document
-  .getElementById("pdfMotivo")
-  .textContent =
-  motivo;
-
-/* =================================================
-   OBSERVAÇÕES
-   ================================================= */
-
-document
-  .getElementById("pdfObservacoes")
-  .textContent =
-  observacoes ||
-  "Nenhuma observação registrada.";
-
-/* =================================================
-   DATA DA ALTA
-   ================================================= */
-
-const partes =
-  data.split("-");
-
-const dataFormatada =
-  `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-document
-  .getElementById("pdfData")
-  .textContent =
-  dataFormatada;
-
-/* =================================================
-   HORA DA ALTA
-   ================================================= */
-
-const agora =
-  new Date();
-
-const hora =
-  String(
-    agora.getHours()
-  ).padStart(2, "0");
-
-const minutos =
-  String(
-    agora.getMinutes()
-  ).padStart(2, "0");
-
-document
-  .getElementById("pdfHora")
-  .textContent =
-  `${hora}:${minutos}`;
-
-/* =================================================
-   DATA DE EMISSÃO
-   ================================================= */
-
-const diaEmissao =
-  String(
-    agora.getDate()
-  ).padStart(2, "0");
-
-const mesEmissao =
-  String(
-    agora.getMonth() + 1
-  ).padStart(2, "0");
-
-const anoEmissao =
-  agora.getFullYear();
-
-document
-  .getElementById("pdfDataEmissao")
-  .textContent =
-  `${diaEmissao}/${mesEmissao}/${anoEmissao}`;
-
-/* =================================================
-   DADOS DO MÉDICO
-   
-   ================================================
-   ALTERE SOMENTE ESTAS DUAS LINHAS
-   ================================================
-   */
-
-const medico =
-  "NOME DO MÉDICO";
-
-const crm =
-  "CRM 000000";
-
-document
-  .getElementById("pdfMedico")
-  .textContent =
-  medico;
-
-document
-  .getElementById("pdfCRM")
-  .textContent =
-  crm;
-
-document
-  .getElementById("pdfAssinatura")
-  .textContent =
-  medico;
-
-document
-  .getElementById("pdfAssinaturaCRM")
-  .textContent =
-  crm;
-
-/* =================================================
-   ORIENTAÇÕES
-   ================================================= */
-
-document
-  .getElementById("pdfOrientacoes")
-  .textContent =
-  orientacoes ||
-  "Paciente orientado quanto aos cuidados necessários após a alta.";
-
-/* =================================================
-   FECHAR MODAL
-   ================================================= */
-
-fecharFormularioAlta();
-
-/* =================================================
-   MOSTRAR DOCUMENTO
-   ================================================= */
-
-document
-  .getElementById("documentoAlta")
-  .style.display =
-  "block";
-
-/* =================================================
-   IMPRIMIR / SALVAR COMO PDF
-   ================================================= */
-
-setTimeout(() => {
-
-  window.print();
-
-}, 400);
-
-}
-
-/* =====================================================
-DEPOIS DE IMPRIMIR
-===================================================== */
-
-window.addEventListener(
-"afterprint",
-function() {
-
-  document
-    .getElementById("documentoAlta")
-    .style.display =
-    "none";
-
-}
-
-);
-
-/* =====================================================
-FECHAR MODAL CLICANDO FORA
-===================================================== */
-
-document
-.getElementById("modalAlta")
-.addEventListener(
-"click",
-function(event) {
-
-    if (
-      event.target === this
-    ) {
-
-      fecharFormularioAlta();
-
-    }
-
-  }
-);
-
-/* =====================================================
-FECHAR COM ESC
-===================================================== */
-
-document.addEventListener(
-"keydown",
-function(event) {
-
-  if (
-    event.key === "Escape"
-  ) {
-
-    const modal =
-      document.getElementById("modalAlta");
-
-    if (
-      modal.style.display === "flex"
-    ) {
-
-      fecharFormularioAlta();
-
-    }
-
-  }
-
-}
-
-);
-
-/* =====================================================
-INICIAR SISTEMA
-===================================================== */
-
-carregar();
-
-carregarMedicacoes();
-
-/* =====================================================
-ATUALIZAR FILA A CADA 10 SEGUNDOS
-===================================================== */
-
-setInterval(
-carregar,
-10000
-);
-
-</script> </body> </html>
+</script>
