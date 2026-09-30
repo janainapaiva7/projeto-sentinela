@@ -272,6 +272,22 @@
         </div>
 
 
+        <!-- CRM DO MÉDICO -->
+
+        <div class="alta-campo">
+
+          <label for="altaCRM">
+            CRM do médico
+          </label>
+
+          <input
+            id="altaCRM"
+            placeholder="Ex.: 123456/DF"
+            autocomplete="off">
+
+        </div>
+
+
         <!-- OBSERVAÇÕES -->
 
         <div class="alta-campo completo">
@@ -412,6 +428,8 @@
         <span id="pdfMedico">
           Médico responsável
         </span>
+        <br>
+        <span id="pdfCRM">CRM: não informado</span>
 
       </div>
 
@@ -829,6 +847,16 @@ function abrirAlta(paciente) {
 
 
   document.getElementById(
+    "altaMedico"
+  ).value = "";
+
+
+  document.getElementById(
+    "altaCRM"
+  ).value = "";
+
+
+  document.getElementById(
     "altaObservacoes"
   ).value = "";
 
@@ -898,6 +926,12 @@ function gerarAltaPDF() {
   const medico =
     document.getElementById(
       "altaMedico"
+    ).value.trim();
+
+
+  const crm =
+    document.getElementById(
+      "altaCRM"
     ).value.trim();
 
 
@@ -1023,6 +1057,12 @@ function gerarAltaPDF() {
     "pdfMedico"
   ).textContent =
     medico;
+
+
+  document.getElementById(
+    "pdfCRM"
+  ).textContent =
+    crm ? "CRM: " + crm : "CRM: não informado";
 
 
   /* Fecha modal */
