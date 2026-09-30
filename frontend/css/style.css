@@ -1727,3 +1727,220 @@ body.login-page {
         margin-bottom: 28px;
     }
 }
+/* =========================================================
+   PAINEL MÉDICO — REFINO VISUAL + CORREÇÃO DO MODAL DE ALTA
+   Escopo exclusivo: body.medico-page
+   Não altera o index/login.
+   ========================================================= */
+body.medico-page {
+    background:
+        radial-gradient(circle at 8% 0%, rgba(165,45,45,.08), transparent 28%),
+        linear-gradient(180deg, #f8faf9 0%, #eef2f3 100%);
+}
+
+body.medico-page .container {
+    position: relative;
+    width: min(1180px, calc(100% - 32px));
+    margin: 28px auto;
+    padding: 28px;
+    background: rgba(255,255,255,.96);
+    border: 1px solid rgba(127,34,38,.10);
+    border-radius: 22px;
+    box-shadow: 0 18px 48px rgba(55,30,31,.08);
+}
+
+body.medico-page .cabecalho,
+body.medico-page .painel-header {
+    background: linear-gradient(135deg, #7f2226 0%, #a52d2d 72%, #b83a3a 100%);
+    border: 0;
+    box-shadow: 0 14px 34px rgba(127,34,38,.18);
+}
+
+body.medico-page .consultorio {
+    background: #fff;
+    border: 1px solid rgba(127,34,38,.12);
+    box-shadow: 0 10px 28px rgba(55,30,31,.06);
+}
+
+body.medico-page .consultorio-info {
+    background: linear-gradient(135deg, #fff7f7, #fff);
+    border-color: rgba(165,45,45,.14);
+}
+
+body.medico-page #triagens {
+    display: grid;
+    gap: 14px;
+}
+
+body.medico-page #triagens > * {
+    border: 1px solid rgba(127,34,38,.10);
+    border-left: 4px solid var(--cor-vinho);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(55,30,31,.055);
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+body.medico-page #triagens > *:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(55,30,31,.09);
+}
+
+body.medico-page .acoes-paciente {
+    border-top-color: rgba(127,34,38,.10);
+}
+
+body.medico-page .acoes-paciente .btn-alta {
+    background: var(--cor-coral);
+    color: #fff;
+}
+
+body.medico-page .acoes-paciente .btn-alta:hover {
+    background: var(--cor-coral-escuro);
+}
+
+body.medico-page .consulta-box {
+    background: #fff;
+    border: 1px solid rgba(127,34,38,.11);
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(55,30,31,.06);
+}
+
+body.medico-page .campo label,
+body.medico-page .alta-campo label {
+    color: #542528;
+    font-weight: 700;
+}
+
+body.medico-page input,
+body.medico-page select,
+body.medico-page textarea {
+    border-color: #d9e0e1;
+    background: #fcfdfd;
+}
+
+body.medico-page input:focus,
+body.medico-page select:focus,
+body.medico-page textarea:focus {
+    border-color: var(--cor-vinho);
+    box-shadow: 0 0 0 3px rgba(165,45,45,.10);
+    outline: none;
+}
+
+/* CORREÇÃO: o HTML adiciona .ativo, então ele precisa realmente exibir o modal. */
+body.medico-page .modal-alta {
+    display: none;
+}
+
+body.medico-page .modal-alta.ativo {
+    display: flex;
+}
+
+body.medico-page .alta-box {
+    width: min(820px, 100%);
+    max-height: min(760px, calc(100vh - 40px));
+    overflow: auto;
+    background: #fff;
+    border: 1px solid rgba(127,34,38,.12);
+    border-radius: 22px;
+    box-shadow: 0 28px 80px rgba(40,25,26,.24);
+    animation: medicoAltaEntrada .2s ease-out;
+}
+
+@keyframes medicoAltaEntrada {
+    from { opacity: 0; transform: translateY(10px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+body.medico-page .alta-cabecalho {
+    background: linear-gradient(135deg, #7f2226, #a52d2d);
+    color: #fff;
+    padding: 22px 26px;
+}
+
+body.medico-page .alta-titulo h2,
+body.medico-page .alta-titulo p {
+    color: #fff;
+}
+
+body.medico-page .alta-icone {
+    background: rgba(255,255,255,.16);
+    color: #fff;
+    border-color: rgba(255,255,255,.24);
+}
+
+body.medico-page .btn-fechar-alta {
+    color: #fff;
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.20);
+}
+
+body.medico-page .btn-fechar-alta:hover {
+    background: rgba(255,255,255,.22);
+}
+
+body.medico-page .alta-corpo {
+    padding: 24px 26px 26px;
+}
+
+body.medico-page .alta-paciente {
+    background: #fff7f7;
+    border: 1px solid rgba(165,45,45,.12);
+    border-left: 4px solid var(--cor-coral);
+    border-radius: 14px;
+}
+
+body.medico-page .alta-acoes {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 24px -26px -26px;
+    padding: 16px 26px;
+    background: rgba(255,255,255,.96);
+    border-top: 1px solid #e5e9ea;
+}
+
+body.medico-page .btn-gerar-alta {
+    background: var(--cor-vinho);
+    color: #fff;
+}
+
+body.medico-page .btn-gerar-alta:hover {
+    background: var(--cor-vinho-escuro);
+}
+
+body.medico-page .btn-cancelar-alta {
+    background: #f1f4f4;
+    color: #4a5254;
+}
+
+body.medico-page .btn-cancelar-alta:hover {
+    background: #e4e9e9;
+}
+
+@media (max-width: 700px) {
+    body.medico-page .container {
+        width: min(100% - 20px, 1180px);
+        padding: 18px;
+        margin: 14px auto;
+    }
+
+    body.medico-page .alta-cabecalho,
+    body.medico-page .alta-corpo {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    body.medico-page .alta-acoes {
+        margin-left: -18px;
+        margin-right: -18px;
+        padding-left: 18px;
+        padding-right: 18px;
+        flex-direction: column-reverse;
+    }
+
+    body.medico-page .alta-acoes button {
+        width: 100%;
+    }
+}
