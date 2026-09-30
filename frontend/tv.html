@@ -1,316 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Hospitalar - TV</title>
-
     <link rel="stylesheet" href="css/style.css">
 </head>
-
-<body>
-
-<!-- =====================================================
-     TELA PRINCIPAL
-===================================================== -->
-
+<body class="tv-page">
 <main class="tv-container">
-
-    <!-- =================================================
-         PAINEL ESQUERDO
-    ================================================== -->
-
     <section class="left-panel">
-
-        <!-- =============================================
-             LOCAL
-        ============================================== -->
-
         <div class="box local-box">
-
-            <div
-                class="box-title"
-                id="local-tipo"
-            >
-                GUICHÊ
-            </div>
-
-            <div
-                class="local-number"
-                id="local-numero"
-            >
-                --
-            </div>
-
-            <div class="local-type">
-                LOCAL DE ATENDIMENTO
-            </div>
-
+            <div class="box-title" id="local-tipo">GUICHÊ</div>
+            <div class="local-number" id="local-numero">--</div>
+            <div class="local-type">LOCAL DE ATENDIMENTO</div>
         </div>
-
-        <!-- =============================================
-             HISTÓRICO
-        ============================================== -->
 
         <div class="box history-box">
-
-            <div class="box-title">
-                Últimas chamadas
-            </div>
-
+            <div class="box-title">Últimas chamadas</div>
             <ul id="history-list"></ul>
-
         </div>
-
     </section>
-
-    <!-- =================================================
-         PAINEL DIREITO
-    ================================================== -->
 
     <section class="right-panel">
-
-        <!-- =============================================
-             PACIENTE
-        ============================================== -->
-
         <div class="box patient-box">
-
-            <div class="box-title">
-                Paciente
-            </div>
-
-            <div
-                class="patient-name"
-                id="patient-name"
-            >
-                AGUARDANDO...
-            </div>
-
+            <div class="call-status"><span class="live-dot"></span> CHAMADA ATUAL</div>
+            <div class="box-title">Paciente</div>
+            <div class="patient-name" id="patient-name">AGUARDANDO...</div>
+            <div class="patient-instruction">Dirija-se ao local indicado no painel.</div>
         </div>
-
-        <!-- =============================================
-             LOGO
-        ============================================== -->
 
         <div class="box logo-box">
-
-            <div class="logo-icon">
-                🏥
-            </div>
-
+            <div class="logo-icon" aria-hidden="true">+</div>
             <div>
-
-                <div class="logo-text">
-                    Sistema Hospitalar
-                </div>
-
-                <div class="logo-subtitle">
-                    Painel de atendimento
-                </div>
-
+                <div class="logo-text">Sistema Hospitalar</div>
+                <div class="logo-subtitle">Painel de atendimento</div>
             </div>
-
         </div>
-
     </section>
-
 </main>
 
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
-
 <script>
+let ultimoId = null;
 
-    /* ==================================================
-       CONTROLE DA ÚLTIMA CHAMADA
-    ================================================== */
+function atualizar() {
+    fetch("/tv/chamada")
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            const chamada = data.chamada;
+            const historico = data.historico || [];
 
-    let ultimoId = null;
+            if (chamada) {
+                document.getElementById("local-tipo").innerText = chamada.localTipo || "GUICHÊ";
+                document.getElementById("local-numero").innerText = chamada.localNumero || "--";
+                document.getElementById("patient-name").innerText = chamada.paciente || "AGUARDANDO...";
 
-
-    /* ==================================================
-       ATUALIZAR TELA
-    ================================================== */
-
-    function atualizar() {
-
-        fetch("/tv/chamada")
-
-            .then(function(response) {
-
-                return response.json();
-
-            })
-
-            .then(function(data) {
-
-                /* ------------------------------------------
-                   DADOS
-                ------------------------------------------ */
-
-                const chamada =
-                    data.chamada;
-
-                const historico =
-                    data.historico || [];
-
-
-                /* ------------------------------------------
-                   CHAMADA ATUAL
-                ------------------------------------------ */
-
-                if (chamada) {
-
-                    document.getElementById(
-                        "local-tipo"
-                    ).innerText =
-                        chamada.localTipo ||
-                        "GUICHÊ";
-
-
-                    document.getElementById(
-                        "local-numero"
-                    ).innerText =
-                        chamada.localNumero ||
-                        "--";
-
-
-                    document.getElementById(
-                        "patient-name"
-                    ).innerText =
-                        chamada.paciente ||
-                        "AGUARDANDO...";
-
-
-                    /* --------------------------------------
-                       NOVA CHAMADA
-                    -------------------------------------- */
-
-                    if (
-                        chamada.id !==
-                        ultimoId
-                    ) {
-
-                        ultimoId =
-                            chamada.id;
-
-
-                        const patientBox =
-                            document.querySelector(
-                                ".patient-box"
-                            );
-
-
-                        patientBox.classList.remove(
-                            "flash"
-                        );
-
-
-                        void patientBox.offsetWidth;
-
-
-                        patientBox.classList.add(
-                            "flash"
-                        );
-
-                    }
-
+                if (chamada.id !== ultimoId) {
+                    ultimoId = chamada.id;
+                    const patientBox = document.querySelector(".patient-box");
+                    patientBox.classList.remove("flash");
+                    void patientBox.offsetWidth;
+                    patientBox.classList.add("flash");
                 }
+            }
 
+            const lista = document.getElementById("history-list");
+            lista.innerHTML = "";
 
-                /* ------------------------------------------
-                   HISTÓRICO
-                ------------------------------------------ */
-
-                const lista =
-                    document.getElementById(
-                        "history-list"
-                    );
-
-
-                lista.innerHTML = "";
-
-
-                historico
-                    .slice(0, 4)
-                    .forEach(function(item) {
-
-                        const li =
-                            document.createElement(
-                                "li"
-                            );
-
-
-                        const tipo =
-                            item.localTipo
-                                ? item.localTipo.substring(
-                                    0,
-                                    4
-                                )
-                                : "GUIC";
-
-
-                        li.innerText =
-                            tipo +
-                            ". " +
-                            (
-                                item.localNumero ||
-                                "--"
-                            ) +
-                            " - " +
-                            (
-                                item.paciente ||
-                                "Paciente"
-                            );
-
-
-                        lista.appendChild(li);
-
-                    });
-
-            })
-
-
-            .catch(function(error) {
-
-                console.log(
-                    "Erro ao buscar chamada:",
-                    error
-                );
-
+            historico.slice(0, 4).forEach(function(item) {
+                const li = document.createElement("li");
+                const tipo = item.localTipo ? item.localTipo.substring(0, 4) : "GUIC";
+                li.innerText = tipo + ". " + (item.localNumero || "--") + " - " + (item.paciente || "Paciente");
+                lista.appendChild(li);
             });
+        })
+        .catch(function(error) {
+            console.log("Erro ao buscar chamada:", error);
+        });
+}
 
-    }
-
-
-    /* ==================================================
-       PRIMEIRA ATUALIZAÇÃO
-    ================================================== */
-
-    atualizar();
-
-
-    /* ==================================================
-       ATUALIZA A CADA 2 SEGUNDOS
-    ================================================== */
-
-    setInterval(
-        atualizar,
-        2000
-    );
-
+atualizar();
+setInterval(atualizar, 2000);
 </script>
-
 </body>
-
 </html>
-
