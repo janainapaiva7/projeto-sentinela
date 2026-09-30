@@ -1742,11 +1742,11 @@ body.medico-page {
     --med-muted: #6e777e;
     --med-line: #e3e6e8;
     --med-surface: #ffffff;
-    --med-canvas: #f4f5f6;
+    --med-canvas: #f8f5ef;
     --med-soft: #faf8f7;
     margin: 0;
     min-height: 100vh;
-    background: var(--med-canvas);
+    background: #f8f5ef;
     color: var(--med-ink);
     font-family: "DM Sans", Arial, sans-serif;
     line-height: 1.5;
