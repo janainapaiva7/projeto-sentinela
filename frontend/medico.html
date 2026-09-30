@@ -99,97 +99,7 @@
   <div class="divisoria"></div>
 
 
-  <!-- CONSULTA -->
-
-  <section>
-
-    <div class="secao-titulo">
-
-      <div class="linha-titulo"></div>
-
-      <h2>Consulta atual</h2>
-
-    </div>
-
-
-    <div class="consulta-box">
-
-      <div class="consulta-grid">
-
-        <div class="campo campo-completo">
-
-          <label for="paciente">
-            Paciente
-          </label>
-
-          <input
-            id="paciente"
-            placeholder="Selecione um paciente na fila"
-            readonly>
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="diagnostico">
-            Diagnóstico
-          </label>
-
-          <input
-            id="diagnostico"
-            placeholder="Informe o diagnóstico">
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="medicacao">
-            Medicação
-          </label>
-
-          <select id="medicacao">
-
-            <option value="">
-              Selecione a medicação
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="campo campo-completo">
-
-          <label for="obs">
-            Observações
-          </label>
-
-          <textarea
-            id="obs"
-            placeholder="Registre observações sobre o atendimento..."></textarea>
-
-        </div>
-
-      </div>
-
-
-      <div class="consulta-footer">
-
-        <button
-          class="btn-salvar"
-          onclick="salvar()">
-
-          Finalizar consulta
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
+  <!-- A consulta é aberta em uma página separada ao clicar em Atender. -->
 
 </div>
 
@@ -851,16 +761,9 @@ function selecionar(index) {
     triagensCarregadas[index];
 
 
-  document.getElementById(
-    "paciente"
-  ).value =
-    t.nome || "";
-
-
-  document.getElementById(
-    "obs"
-  ).value =
-    t.observacao || "";
+  sessionStorage.setItem("medicoPacienteSelecionado", t.nome || "");
+  sessionStorage.setItem("medicoObservacaoSelecionada", t.observacao || "");
+  window.location.href = "consulta.html";
 
 
   if (
@@ -1352,7 +1255,6 @@ document.getElementById(
 
 carregar();
 
-carregarMedicacoes();
 
 
 setInterval(
