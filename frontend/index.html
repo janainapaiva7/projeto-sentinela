@@ -1,159 +1,147 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#741f28">
     <title>Sistema Hospitalar</title>
-
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="login-page">
 
-    <div class="container login-container">
+<main class="login-shell">
 
-        <div class="logo">
-            ✚
+    <section class="login-visual" aria-label="Identidade do sistema">
+        <div class="visual-brand">
+            <div class="visual-mark" aria-hidden="true">
+                <span></span>
+                <span></span>
+            </div>
+            <span class="visual-brand-name">Sistema Hospitalar</span>
         </div>
 
-        <h1>
-            Sistema Hospitalar
-        </h1>
-
-        <p class="subtitle">
-            Acesso ao sistema
-        </p>
-
-        <div class="input-box">
-
-            <label for="usuario">
-                Usuário
-            </label>
-
-            <input
-                id="usuario"
-                type="text"
-                placeholder="Digite seu usuário"
-                autocomplete="username"
-            >
-
+        <div class="visual-content">
+            <span class="visual-kicker">AMBIENTE DE ATENDIMENTO</span>
+            <h1>Precisão no cuidado.<br><strong>Clareza em cada etapa.</strong></h1>
+            <p>
+                Acesso integrado às rotinas de atendimento, triagem e acompanhamento de pacientes.
+            </p>
         </div>
 
-        <div class="input-box">
+        <div class="visual-footer">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Ambiente protegido</span>
+        </div>
+    </section>
 
-            <label for="senha">
-                Senha
-            </label>
-
-            <input
-                id="senha"
-                type="password"
-                placeholder="Digite sua senha"
-                autocomplete="current-password"
-            >
-
+    <section class="login-panel" aria-labelledby="login-title">
+        <div class="login-heading">
+            <span class="eyebrow">ACESSO RESTRITO</span>
+            <h2 id="login-title">Bem-vindo</h2>
+            <p>Entre com suas credenciais para acessar o sistema.</p>
         </div>
 
-        <button onclick="login()">
+        <div class="login-form">
+            <div class="input-box">
+                <label for="usuario">Usuário</label>
+                <input
+                    id="usuario"
+                    type="text"
+                    placeholder="Digite seu usuário"
+                    autocomplete="username"
+                >
+            </div>
 
-            <span>
-                Entrar
-            </span>
+            <div class="input-box">
+                <div class="field-heading">
+                    <label for="senha">Senha</label>
+                </div>
+                <input
+                    id="senha"
+                    type="password"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                >
+            </div>
 
-            <span class="arrow">
-                →
-            </span>
+            <button class="login-submit" type="button" onclick="login()">
+                <span>Entrar no sistema</span>
+                <span class="login-arrow" aria-hidden="true">→</span>
+            </button>
 
-        </button>
-
-        <p id="erro"></p>
-
-        <div class="security">
-            🔒 Ambiente seguro e protegido
+            <p id="erro" role="alert" aria-live="polite"></p>
         </div>
 
-    </div>
+        <div class="login-security">
+            <div class="security-icon" aria-hidden="true">✓</div>
+            <div>
+                <strong>Acesso protegido</strong>
+                <span>Suas credenciais são utilizadas apenas para autenticação.</span>
+            </div>
+        </div>
+    </section>
 
-    <script>
+</main>
 
-        function login() {
+<script>
+    function login() {
+        const usuario = document.getElementById("usuario").value;
+        const senha = document.getElementById("senha").value;
+        const erro = document.getElementById("erro");
+        const botao = document.querySelector(".login-submit");
 
-            const usuario =
-                document.getElementById("usuario").value;
+        erro.textContent = "";
 
-            const senha =
-                document.getElementById("senha").value;
-
-            const erro =
-                document.getElementById("erro");
-
-            erro.textContent = "";
-
-            fetch("/login", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    usuario: usuario,
-                    senha: senha
-                })
-
-            })
-
-            .then(response => response.json())
-
-            .then(data => {
-
-                if (data.tipo === "triagem") {
-
-                    location.href = "triagem.html";
-
-                }
-
-                else if (data.tipo === "medico") {
-
-                    location.href = "medico.html";
-
-                }
-
-                else if (data.tipo === "atendimento") {
-
-                    location.href = "atendimento.html";
-
-                }
-
-                else {
-
-                    erro.textContent =
-                        "Usuário ou senha inválidos.";
-
-                }
-
-            })
-
-            .catch(error => {
-
-                console.error(error);
-
-                erro.textContent =
-                    "Erro ao conectar ao servidor.";
-
-            });
-
+        if (!usuario.trim() || !senha.trim()) {
+            erro.textContent = "Informe seu usuário e sua senha.";
+            return;
         }
 
-    </script>
+        botao.disabled = true;
+        botao.classList.add("is-loading");
+
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                usuario: usuario,
+                senha: senha
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo === "triagem") {
+                location.href = "triagem.html";
+            }
+            else if (data.tipo === "medico") {
+                location.href = "medico.html";
+            }
+            else if (data.tipo === "atendimento") {
+                location.href = "atendimento.html";
+            }
+            else {
+                erro.textContent = "Usuário ou senha inválidos.";
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            erro.textContent = "Erro ao conectar ao servidor.";
+        })
+        .finally(() => {
+            botao.disabled = false;
+            botao.classList.remove("is-loading");
+        });
+    }
+
+    document.getElementById("senha").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            login();
+        }
+    });
+</script>
 
 </body>
-
 </html>
